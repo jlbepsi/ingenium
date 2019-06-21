@@ -1,21 +1,31 @@
 {
-  "name": "ingenium",
-  "version": "0.1.0",
+  "name": "react-material-dashboard",
+  "version": "0.2.0",
   "private": true,
-  "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "@material-ui/core": "^4.0.0-beta.1",
+    "@material-ui/icons": "^4.0.0-beta.0",
+    "@material-ui/styles": "^4.0.0-beta.1",
+    "@mdi/js": "^3.6.95",
+    "@mdi/react": "^1.1.1",
+    "classnames": "latest",
+    "jwt-decode": "^2.2.0",
+    "node-sass": "^4.12.0",
+    "prop-types": "latest",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-perfect-scrollbar": "^1.4.4",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.0.1",
+    "recompose": "^0.30.0"
   },
+  "devDependencies": {},
   "browserslist": {
     "production": [
       ">0.2%",
