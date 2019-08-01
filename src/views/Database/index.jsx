@@ -44,7 +44,7 @@ class Database extends Component {
   accountsAPI = new AccountsAPI();
 
   componentDidMount() {
-    console.log('Database - componentDidMount')
+    console.log('DatabaseInfo - componentDidMount')
     /*
      * Chargement des comptes des serveurs de base de données
      */

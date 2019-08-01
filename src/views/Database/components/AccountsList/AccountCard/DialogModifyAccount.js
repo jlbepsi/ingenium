@@ -18,15 +18,18 @@ import AccountListItem from "../../AccountListItem";
 
 function DialogModifyAccount(props) {
 
+  const PASSWORD_EMPTY = 1 << 3;
+  const PASSWORD_LENGTH_INF = 1 << 4;
+  const PASSWORDCONFIRM_EMPTY = 1 << 5;
+  const PASSWORD_NOT_EQUAL_PASSWORDCONFIRM_EMPTY = 1 << 6;
+
   const [errors, setErrors] = React.useState([]);
   const [password, setPassword] = React.useState('');
   const [passwordConfirm, setPasswordConfirm] = React.useState('');
-  const [btnAddDisabled, setBtnAddDisabled] = React.useState(0);
-
-  const PASSWORD_EMPTY = 0x1;
-  const PASSWORD_LENGTH_INF = 0x2;
-  const PASSWORDCONFIRM_EMPTY = 0x4;
-  const PASSWORD_NOT_EQUAL_PASSWORDCONFIRM_EMPTY = 0x8;
+  const [btnAddDisabled, setBtnAddDisabled] = React.useState(
+    PASSWORD_EMPTY | PASSWORD_LENGTH_INF |
+    PASSWORD_NOT_EQUAL_PASSWORDCONFIRM_EMPTY
+  );
 
   useEffect( () => {
       console.log('DialogModifyAccount - props.useEffect')
@@ -139,7 +142,7 @@ function DialogModifyAccount(props) {
               variant="outlined"
               onChange={handleChangePassword}
 
-              error={(btnAddDisabled & PASSWORD_EMPTY) === PASSWORD_EMPTY}
+              error={ btnAddDisabled & (PASSWORD_EMPTY | PASSWORD_LENGTH_INF | PASSWORD_NOT_EQUAL_PASSWORDCONFIRM_EMPTY) }
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
@@ -152,7 +155,7 @@ function DialogModifyAccount(props) {
               variant="outlined"
               onChange={handleChangeConfirmPassword}
 
-              error={(btnAddDisabled & PASSWORD_EMPTY) === PASSWORD_EMPTY}
+              error={ btnAddDisabled & (PASSWORDCONFIRM_EMPTY | PASSWORD_NOT_EQUAL_PASSWORDCONFIRM_EMPTY) }
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>

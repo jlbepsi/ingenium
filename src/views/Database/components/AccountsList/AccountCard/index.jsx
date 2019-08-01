@@ -4,22 +4,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Material helpers
-import {Grid, IconButton, withStyles} from '@material-ui/core';
+import {Grid, IconButton} from '@material-ui/core';
 
 // Material components
 import {Card, CardContent, CardMedia, Typography} from '@material-ui/core';
 import Tooltip from "@material-ui/core/Tooltip";
-
 import CardActions from "@material-ui/core/CardActions";
+import AccessIcon from '@material-ui/icons/ExitToApp';
+import PasswordIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/AddCircle';
 
 import MySQLImage from './mysql.png'
 import SQLServerImage from './sqlserver.png'
 import OracleImage from './oracle.png'
 
-import AccessIcon from '@material-ui/icons/ExitToApp';
-import PasswordIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/AddCircle';
 
 class AccountCard extends Component {
 

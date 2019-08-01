@@ -182,7 +182,7 @@ class DatabaseEdit extends Component {
 
             <DatabaseForm
               classes={classes}
-              database = {database}
+              database={database}
               handleChangeCommentaire={this.changeCommentaire}
               handleModifyDatabase={this.validateForm}
             />
@@ -194,7 +194,7 @@ class DatabaseEdit extends Component {
 
             <DatabaseContributors
               classes={classes}
-              database = {database}
+              database={database}
               handleAddContributor={this.addContributor}
               handleModifyContributor={this.modifyContributor}
               handleDeleteContributor={this.deleteContributor}

@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
+import SnackbarContentWrapper from "../../../share/SnackbarContentWrapper";
 
 
 
@@ -14,15 +15,15 @@ const styles = theme => ({
   form: {
     width: "80%",
   },
-  button: {
-    margin: theme.spacing.unit,
-  },
   buttonsAction: {
     display: 'flex',
     justifyContent: 'flex-end',
     marginTop: theme.spacing.unit *3,
     marginBottom: theme.spacing.unit *2,
-  }
+  },
+  margin: {
+    marginBottom: theme.spacing(2),
+  },
 });
 
 
@@ -39,75 +40,84 @@ class DatabaseForm extends Component {
     }
 
     return (
+        <form className={classes.form} autoComplete="off" >
+          {! database.CanBeUpdated &&
+          <SnackbarContentWrapper
+            variant="warning"
+            className={classes.margin}
+            message="Vous n'êtes pas administrateur de la base de données."
+          />
+          }
 
-      <form className={classes.form} autoComplete="off" >
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={7}>
-            <TextField
-              id="nom"
-              label="Nom de la base de données"
-              fullWidth
-              disabled
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={12} md={7}>
+              <TextField
+                id="nom"
+                label="Nom de la base de données"
+                fullWidth
+                disabled
 
-              value={database.NomBD}
-            />
+                value={database.NomBD}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={5}>
+              <TextField
+                id="DateCreation"
+                label="Date de création"
+                fullWidth
+                disabled
+
+                value={database.DateCreation}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={12}>
+              <TextField
+                id="Commentaire"
+                label="Commentaire"
+                fullWidth
+                disabled={! database.CanBeUpdated}
+
+                value={database.Commentaire}
+                onChange={(event) => this.props.handleChangeCommentaire(event.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={5}>
+              <TextField
+                id="servername"
+                label="Type de serveur"
+                fullWidth
+                disabled
+
+                value={database.DatabaseServerName.Name}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={7}>
+              <TextField
+                id="serveururl"
+                label="Adresse du serveur"
+                fullWidth
+                disabled
+
+                value={database.DatabaseServerName.NomDNS}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={12} md={5}>
-            <TextField
-              id="DateCreation"
-              label="Date de création"
-              fullWidth
-              disabled
 
-              value={database.DateCreation}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={12}>
-            <TextField
-              id="Commentaire"
-              label="Commentaire"
-              fullWidth
-
-              value={database.Commentaire}
-              onChange={(event) => this.props.handleChangeCommentaire(event.target.value)}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={12} md={5}>
-            <TextField
-              id="servername"
-              label="Type de serveur"
-              fullWidth
-              disabled
-
-              value={database.DatabaseServerName.Name}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={7}>
-            <TextField
-              id="serveururl"
-              label="Adresse du serveur"
-              fullWidth
-              disabled
-
-              value={database.DatabaseServerName.NomDNS}
-            />
-          </Grid>
-        </Grid>
-
-        <div className={classes.buttonsAction}>
-          <Button component={RouterLink} to="/database">Annuler</Button>
-          &nbsp;
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.props.handleModifyDatabase}
-          >
-            Valider
-          </Button>
-        </div>
-      </form>
-
+          <div className={classes.buttonsAction}>
+            <Button component={RouterLink} to="/database">Annuler</Button>
+            &nbsp;
+            {database.CanBeUpdated &&
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.props.handleModifyDatabase}
+            >
+              Valider
+            </Button>
+            }
+          </div>
+        </form>
     )
   }
 }

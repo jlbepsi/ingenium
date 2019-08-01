@@ -13,6 +13,8 @@ export default {
     limegrey: '#ECEAE8',
     lightgrey: '#F3F1F1',
     //lightgrey: '#f8f9fa',
+    subgrey: '#A9C3D7',
+    limemarron: '#d9534f'
   },
   primary: {
     contrastText: white,
@@ -65,5 +67,5 @@ export default {
   },
   border: '#DFE3E8',
   //divider: '#DFE3E8',
-  subheader: '#4F94DB'
+  subheader: '#B3C5D8',
 };

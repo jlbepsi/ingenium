@@ -50,6 +50,19 @@ function SnackbarContentWrapper(props) {
   const { classes, className, message, onClose, variant, ...other } = props;
   const Icon = variantIcon[variant];
 
+  const actionButtons = (onClose === undefined ?
+    [] :
+    <IconButton
+      key="close"
+      aria-label="Close"
+      color="inherit"
+      className={classes.close}
+      onClick={onClose}
+    >
+      <CloseIcon className={classes.icon} />
+    </IconButton>
+  );
+
   return (
     <SnackbarContent
       className={classNames(classes[variant], className)}
@@ -60,17 +73,7 @@ function SnackbarContentWrapper(props) {
           {message}
         </span>
       }
-      action={[
-        <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
-          className={classes.close}
-          onClick={onClose}
-        >
-          <CloseIcon className={classes.icon} />
-        </IconButton>,
-      ]}
+      action={actionButtons}
       {...other}
     />
   );

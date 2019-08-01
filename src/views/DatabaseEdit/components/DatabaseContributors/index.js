@@ -80,11 +80,42 @@ class DatabaseContributors extends Component {
     this.props.handleDeleteContributor(this.state.sqlLogin);
   };
 
-
   renderRow(contributor, classes) {
 
     const persmisson = getPermission(contributor.GroupType);
     const fullName = (contributor.UserFullName === null ? "Non" : contributor.UserFullName);
+
+    let actions = [];
+    if (contributor.CanBeUpdated) {
+      actions.push(
+        <Tooltip title="Modifier le contributeur">
+          <IconButton
+            size={"small"}
+            aria-label="Modifier"
+            onClick={(e) => this.modifyContributor(contributor, e)}
+          >
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
+      );
+    }
+    if (contributor.CanBeDeleted) {
+      actions.push(
+        <Tooltip title="Supprimer le contributeur">
+          <IconButton
+            size={"small"}
+            aria-label="Supprimer"
+            className={classes.btnSupprimer}
+            onClick={(e) => this.deleteContributor(contributor, e)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      );
+    }
+    /*if (actions.length === 0) {
+      actions.push(<Typography>Vous n'êtes pas administrateur</Typography>)
+    }*/
 
     return <TableRow key={contributor.SqlLogin} hover>
       <TableCell>{fullName}</TableCell>
@@ -101,26 +132,7 @@ class DatabaseContributors extends Component {
 
       </TableCell>
       <TableCell>
-        <Tooltip title="Modifier le contributeur">
-          <IconButton
-            size={"small"}
-            aria-label="Modifier"
-            onClick={(e) => this.modifyContributor(contributor, e)}
-          >
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-
-        <Tooltip title="Supprimer le contributeur">
-          <IconButton
-            size={"small"}
-            aria-label="Supprimer"
-            className={classes.btnSupprimer}
-            onClick={(e) => this.deleteContributor(contributor, e)}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+        {actions}
       </TableCell>
     </TableRow>
 
@@ -141,15 +153,17 @@ class DatabaseContributors extends Component {
 
     return (
       <div>
+        {database.CanAddGroupUser &&
         <Button
           className={classes.btnAjouter}
           variant="contained"
           color={"primary"}
           onClick={this.addContributor}
         >
-          <AddIcon className={classes.leftIcon} />
+          <AddIcon className={classes.leftIcon}/>
           Nouveau contributeur
         </Button>
+        }
 
         <Paper>
           <Table className={classes.table}>

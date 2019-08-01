@@ -90,6 +90,36 @@ class DatabasesList extends Component {
       }
     );
 
+    let actions = [];
+
+    if (database.CanBeUpdated) {
+      actions.push(
+        <Tooltip title="Modifier la base de données">
+          <IconButton
+            size={"small"}
+            aria-label="Modifier"
+            onClick={(e) => this.modifyDatabase(database, e)}
+          >
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
+      );
+    }
+    if (database.CanBeDeleted) {
+      actions.push(
+        <Tooltip title="Supprimer la base de données">
+          <IconButton
+            size={"small"}
+            aria-label="Supprimer"
+            className={classes.btnSupprimer}
+            onClick={(e) => this.deleteDatabase(database, e)}
+          >
+            <DeleteIcon/>
+          </IconButton>
+        </Tooltip>
+      );
+    }
+
     return <TableRow key={database.Id} hover>
       <TableCell>
         <img
@@ -101,26 +131,8 @@ class DatabasesList extends Component {
       <TableCell>{database.Commentaire}</TableCell>
       <TableCell>{contributors}</TableCell>
       <TableCell>
-        <Tooltip title="Modifier la base de données">
-          <IconButton
-            size={"small"}
-            aria-label="Modifier"
-            onClick={(e) => this.modifyDatabase(database, e)}
-          >
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
 
-        <Tooltip title="Supprimer la base de données">
-          <IconButton
-            size={"small"}
-            aria-label="Supprimer"
-            className={classes.btnSupprimer}
-            onClick={(e) => this.deleteDatabase(database, e)}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+        {actions}
       </TableCell>
     </TableRow>
 
@@ -128,7 +140,7 @@ class DatabasesList extends Component {
 
   render() {
     const {classes, databases, accounts} = this.props;
-    const { dialogadddatabase, dialogdeletedatabase, databaseId, databaseName, serverName } = this.state;
+    const { dialogadddatabase, dialogdeletedatabase, databaseName, serverName } = this.state;
 
     return (
       <div>

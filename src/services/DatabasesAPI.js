@@ -5,8 +5,7 @@ import databases from './mockup/databases'
 export default class DatabasesAPI { //extends BaseAPI {
 
   constructor() {
-    //super('http://users.webservices.montpellier.epsi.fr/api/users');
-    //super('http://localhost:8081/api/users');
+    //super('http://database.ws.montpellier.epsi.fr/api/databases');
 
     this.databasesMock = databases;
   }
