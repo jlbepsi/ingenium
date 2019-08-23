@@ -17,7 +17,7 @@ function DatabaseInfo(props) {
     props.history.push("/database");
   }
 
-  const { classes } = props;
+  const { nbDatabases, classes } = props;
 
   return (
     <Paper
@@ -36,7 +36,7 @@ function DatabaseInfo(props) {
             className={classes.value}
             variant="h1"
           >
-            4
+            {nbDatabases}
           </Typography>
           <Typography
             className={classes.title}
@@ -65,6 +65,7 @@ function DatabaseInfo(props) {
 
 DatabaseInfo.propTypes = {
   classeName: PropTypes.string,
+  nbDatabases: PropTypes.number,
   classes: PropTypes.object.isRequired
 };
 

@@ -5,10 +5,6 @@ export default theme => ({
     paddingBottom: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingLeft: theme.spacing.unit,
-    /*paddingTop: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 3,
-    paddingLeft: theme.spacing.unit * 3*/
   },
   imageWrapper: {
     height: '64px',
@@ -29,18 +25,18 @@ export default theme => ({
     fontSize: '15px',
     lineHeight: '18px',
     textAlign: 'right',
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing(2)
   },
   description: {
     lineHeight: '14px',
-    height: theme.spacing.unit * 4,
+    height: theme.spacing(4),
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     color: theme.palette.text.secondary,
     textAlign: 'right',
     marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2
+    marginBottom: theme.spacing(2)
   },
   stats: {
     display: 'flex',

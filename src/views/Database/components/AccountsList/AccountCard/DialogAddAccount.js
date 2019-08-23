@@ -101,10 +101,10 @@ function DialogAddAccount(props) {
         <Typography variant={"subtitle2"}>Serveur</Typography>
         <List>
           <AccountListItem
-            key={accountSelected.DatabaseServerName.Id + '-' + accountSelected.SqlLogin}
+            key={accountSelected.DatabaseServerName.Id}
             classes={classes}
             account={accountSelected}
-            accountId={accountSelected.DatabaseServerName.Id + '-' + accountSelected.SqlLogin}
+            accountId={accountSelected.DatabaseServerName.Id}
           />
         </List>
 
@@ -119,7 +119,7 @@ function DialogAddAccount(props) {
               variant="outlined"
               onChange={handleChangePassword}
 
-              error={(btnAddDisabled & PASSWORD_EMPTY) === PASSWORD_EMPTY}
+              error={ (btnAddDisabled & (PASSWORD_EMPTY | PASSWORD_LENGTH_INF | PASSWORD_NOT_EQUAL_PASSWORDCONFIRM_EMPTY)) !== 0 }
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
@@ -132,7 +132,7 @@ function DialogAddAccount(props) {
               variant="outlined"
               onChange={handleChangeConfirmPassword}
 
-              error={(btnAddDisabled & PASSWORD_EMPTY) === PASSWORD_EMPTY}
+              error={ (btnAddDisabled & (PASSWORDCONFIRM_EMPTY | PASSWORD_NOT_EQUAL_PASSWORDCONFIRM_EMPTY)) !== 0 }
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>

@@ -32,13 +32,47 @@ import MenuList from './MenuList'
 import Icon from "@mdi/react";
 import { mdiDatabase, mdiWeb, mdiOpenInNew, mdiMicrosoft, mdiDeveloperBoard, mdiGithubCircle,
          mdiDomain, mdiPrinter, mdiFaceAgent} from '@mdi/js'
+import AuthService from "../../../../../services/Security/AuthService";
 
 
 class Sidebar extends Component {
   render() {
     const { classes, className } = this.props;
-
     const rootClassName = classNames(classes.root, className);
+
+    // Obtention de l'utilsateur connecté
+    const profile = AuthService.getProfile();
+    let userClasse = "Etudiant";
+    switch (profile.classe) {
+      case 'INT_PROF':
+        userClasse = 'Professeur';
+        break;
+      case 'INT_ADMIN':
+        userClasse = 'Professeur';
+        break;
+    }
+
+    let menuListUser = [
+      {
+        label: 'Base de données',
+        link: '/database',
+        icon: <Icon path={mdiDatabase} size={1}/>
+      },
+      {
+        label: 'Espace Web',
+        link: '/webstorage',
+        icon: <Icon path={mdiWeb} size={1}/>
+      },
+      ,
+    ];
+
+    if (profile.bts) {
+      menuListUser.push({
+        label: 'Suivi PPE',
+        link: '/suivippe',
+        icon: <Icon path={mdiOpenInNew} size={1}/>
+      })
+    }
 
     return (
       <nav className={rootClassName}>
@@ -63,13 +97,13 @@ class Sidebar extends Component {
             className={classes.nameText}
             variant="h6"
           >
-            Test.v5
+            {profile.sub}
           </Typography>
           <Typography
             className={classes.bioText}
             variant="caption"
           >
-            Etudiant
+            {userClasse}
           </Typography>
         </div>
 
@@ -99,23 +133,7 @@ class Sidebar extends Component {
         <MenuList
           classes={classes}
           title='Services'
-          menuList={[
-            {
-              label: 'Base de données',
-              link: '/database',
-              icon: <Icon path={mdiDatabase} size={1}/>
-            },
-            {
-              label: 'Espace Web',
-              link: '/webstorage',
-              icon: <Icon path={mdiWeb} size={1}/>
-            },
-            {
-              label: 'Suivi PPE',
-              link: '/suivippe',
-              icon: <Icon path={mdiOpenInNew} size={1}/>
-            },
-          ]}
+          menuList={menuListUser}
         />
 
         <Divider className={classes.listDivider} />

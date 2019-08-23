@@ -1,63 +1,162 @@
-import React, { Component } from 'react';
-import AuthService from '../../services/Security/AuthService';
-import Button from "@material-ui/core/Button";
+import React from 'react';
 
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from "@material-ui/core/Container";
+import Snackbar from "@material-ui/core/Snackbar";
+import SnackbarContentWrapper from "../share/SnackbarContentWrapper";
 
-class Login extends Component {
+import AuthService from "../../services/Security/AuthService";
 
-    constructor(props) {
-        super(props);
+const useStyles = makeStyles(theme => ({
+    '@global': {
+        body: {
+            backgroundColor: theme.palette.common.white,
+        },
+    },
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '400px'
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.primary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
 
-        this.state = {
-            errorMessage: ''
-        };
+export default function SignIn(props) {
+    const authenticationService = new AuthService();
 
-        this.authenticationService = new AuthService();
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    const classes = useStyles();
+
+    const [form, setValues] = React.useState({
+        login: '',
+        password: ''
+    });
+    const [errorMessage, setErrorMessage] = React.useState('');
+    const [openSnackBar, setOpenSnackBar] = React.useState(false);
+
+    const updateField = e => {
+        setValues({
+            ...form,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    function handleKeyPress(event) {
+        if (event.key === 'Enter' && form.login.length > 0 && form.password.length > 0) {
+            handleSubmit();
+        }
     }
 
-    componentWillMount(){
-        if(AuthService.isLoggedIn())
-            this.props.history.replace('/');
+    function handleCloseSnackBar (event, reason) {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenSnackBar(false);
     }
 
-    handleChange(e){
-        this.setState(
-            {
-                [e.target.name]: e.target.value
-            }
-        )
+    function openSnackbar(message) {
+        setErrorMessage(message);
+        setOpenSnackBar(true);
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
 
-        /* TODO : activate Authentication */
-        this.authenticationService.login("test.v5", "123ABC");
-        this.props.history.replace('/');
-        /*
-        this.authenticationService.loginWithRole(this.state.username, this.state.password, "ROLE_ADMIN")
-            .then(res =>{
-                console.log("login AuthService.login.then");
-                this.props.history.replace('/');
-            })
-            .catch(error =>{
-                console.log(error);
-                this.setState({ errorMessage: 'Le login ou le mot de passe sont incorrects' });
-            })
-
-         */
+    function handleSubmit() {
+        authenticationService.loginWithRole(form.login, form.password, "ROLE_USER")
+          .then(res =>{
+              console.log("login AuthService.login.then");
+              props.history.replace('/');
+          })
+          .catch(error =>{
+              console.log(error);
+              openSnackbar('Le login ou le mot de passe sont incorrects');
+          })
     }
 
-    render() {
-        /* TODO : faire la page de connexion */
-        return (
-          <div>
-                        <Button color='primary' onClick={this.handleSubmit} >Connexion</Button>
-          </div>
-        );
-    }
+return (
+<Container component="main" maxWidth="xs">
+  <CssBaseline />
+  <div className={classes.paper}>
+      <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+          Ingenium
+      </Typography>
+      <div className={classes.form}>
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            margin={"dense"}
+            label="Identifiant"
+            name="login"
+            autoFocus
+
+            value={form.login}
+            onChange={updateField}
+            onKeyPress={handleKeyPress}
+          />
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            margin={"dense"}
+            label="Mot de passe"
+            name="password"
+            type="password"
+
+            value={form.password}
+            onChange={updateField}
+            onKeyPress={handleKeyPress}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+
+            onClick={handleSubmit}
+          >
+              Connexion
+          </Button>
+      </div>
+  </div>
+
+
+  <Snackbar
+    anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+    }}
+    open={openSnackBar}
+    autoHideDuration={4000}
+    onClose={handleCloseSnackBar}
+  >
+      <SnackbarContentWrapper
+        onClose={handleCloseSnackBar}
+        variant={"error"}
+        message={errorMessage}
+      />
+  </Snackbar>
+</Container>
+);
 }
-
-export default Login;

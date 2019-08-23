@@ -18,8 +18,8 @@ const styles = theme => ({
   buttonsAction: {
     display: 'flex',
     justifyContent: 'flex-end',
-    marginTop: theme.spacing.unit *3,
-    marginBottom: theme.spacing.unit *2,
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(2),
   },
   margin: {
     marginBottom: theme.spacing(2),

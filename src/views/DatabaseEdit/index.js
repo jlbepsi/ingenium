@@ -14,6 +14,7 @@ import DatabasesAPI from "../../services/DatabasesAPI";
 import ContributorsAPI from "../../services/ContributorsAPI";
 import Snackbar from "@material-ui/core/Snackbar";
 import SnackbarContentWrapper from "../share/SnackbarContentWrapper";
+import AuthService from "../../services/Security/AuthService";
 
 class DatabaseEdit extends Component {
 
@@ -28,6 +29,7 @@ class DatabaseEdit extends Component {
     snackbarMessage: "Modifications effectuées !",
     processRunning: true,
   };
+  profile = null;
 
 
   // API
@@ -56,6 +58,11 @@ class DatabaseEdit extends Component {
 
         this.openSnackbar("error", "Impossible d'obtenir les données !");
       });
+
+    /*
+     * Obtention de l'utilisateur connecté
+     */
+    this.profile = AuthService.getProfile();
   }
 
   openSnackbar(icon, message) {
@@ -78,15 +85,26 @@ class DatabaseEdit extends Component {
    */
 
   addContributor = (loginsql, fullname, password, permissionid) => {
+/*
 
+    public class GroupUserModel
+    {
+        public int DbId { get; set; }
+        public string SqlLogin { get; set; }
+        public string UserLogin { get; set; }
+        public string UserFullName { get; set; }
+        public string Password { get; set; }
+        public int GroupType { get; set; }
+    }
+ */
     let newContributor =
       {
-        "DbId":this.state.database.Id,
-        "SqlLogin":loginsql,
-        "UserLogin":loginsql,
-        "UserFullName":fullname,
-        "GroupType":permissionid,
-        "AddedByUserLogin":"test.v8"
+        "DbId": this.state.database.Id,
+        "SqlLogin": loginsql,
+        "Password": password,
+        "UserLogin": loginsql,
+        "UserFullName": fullname,
+        "GroupType": permissionid
       };
     this.contributorsAPI.addContributor(newContributor)
       .then(data => {
@@ -107,13 +125,15 @@ class DatabaseEdit extends Component {
   modifyContributor = (loginsql,  password, permissionid) => {
     let database= this.state.database;
     let contributor = database.DatabaseGroupUsers.find(c => c.SqlLogin === loginsql);
+
     contributor.GroupType = permissionid;
+    contributor.Password = password;
 
     this.contributorsAPI.modifyContributor(contributor)
       .then(data => {
         let database= this.state.database;
         let contributor = database.DatabaseGroupUsers.find(c => c.SqlLogin === loginsql);
-        contributor.GroupType = data.GroupType;
+        contributor.GroupType = permissionid;
 
         // OK
         this.openSnackbar("success", 'Contributeur modifié !');
@@ -125,7 +145,13 @@ class DatabaseEdit extends Component {
   };
 
   deleteContributor = (loginsql) => {
-    this.contributorsAPI.deleteContributor(loginsql)
+    let contributorToDelete =
+      {
+        "DbId": this.state.database.Id,
+        "SqlLogin": loginsql,
+      };
+
+    this.contributorsAPI.deleteContributor(loginsql, contributorToDelete)
       .then(data => {
         let database= this.state.database;
         database.DatabaseGroupUsers = database.DatabaseGroupUsers.filter(c => c.SqlLogin !== loginsql);
@@ -150,11 +176,10 @@ class DatabaseEdit extends Component {
   };
 
   validateForm = () => {
-    this.databasesAPI.updateDatabase(this.state.database)
+    this.databasesAPI.updateDatabase(this.state.database, this.profile.sub)
       .then(data => {
         // OK
         this.openSnackbar("success", 'Modifications enregistrées !');
-        this.setState({database: data});
       })
       .catch(err => {
         this.setState({isLoadingDatabase: false});

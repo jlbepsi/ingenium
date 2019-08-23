@@ -1,36 +1,21 @@
 import BaseAPI from "./BaseAPI";
 
 
-export default class ContributorsAPI { //extends BaseAPI {
+export default class ContributorsAPI extends BaseAPI {
 
   constructor() {
-    //super('http://accounts.webservices.montpellier.epsi.fr/api/accounts');
-    //super('http://localhost:8081/api/accounts');
+    super('http://database.ws.montpellier.epsi.fr/api/contributors');
   }
 
   addContributor(newContributor) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-
-        resolve(newContributor);
-      }, 500);
-    });
+    return super.apiPost(newContributor);
   }
 
   modifyContributor(contributor) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-
-        resolve(contributor);
-      }, 500);
-    });
+    return super.apiPut(contributor.SqlLogin, contributor);
   }
 
-  deleteContributor(loginsql) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-          resolve(null);
-      }, 500);
-    });
+  deleteContributor(loginsql, contributor) {
+    return super.apiDeleteWithURL(loginsql, contributor)
   }
 }

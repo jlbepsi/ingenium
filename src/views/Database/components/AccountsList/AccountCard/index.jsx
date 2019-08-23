@@ -53,7 +53,7 @@ class AccountCard extends Component {
         break;
     }
 
-    let cardContent, cardAction;
+    let cardContent, cardAction = [];
     if (account.SqlLogin) {
       cardContent = <CardContent>
         <Typography gutterBottom variant="h5" component="h2">
@@ -62,35 +62,49 @@ class AccountCard extends Component {
         <Typography variant="subtitle2" color="textSecondary" component="p">
           Serveur : {account.DatabaseServerName.NomDNS}
         </Typography>
+        <Typography variant="subtitle2" color="textSecondary" component="p">
+          {account.nbDatabases===0 ?
+          <div>Aucune base de données</div>
+          :
+          <div>
+            <b>Bases de données : {account.nbDatabases}</b>
+          </div>
+          }
+        </Typography>
       </CardContent>;
 
-      cardAction = <CardActions>
-        <Tooltip title="Accès au serveur">
-          <IconButton aria-label="Acces"
-                      onClick={(e) => this.serverAccess()}
-          >
-            <AccessIcon />
-          </IconButton>
-        </Tooltip>
-        <div className={classes.rightIcon}>
-        <Tooltip title="Modifer le mot de passe">
-          <IconButton aria-label="Mot de passe"
-                      onClick={this.modifyAccountPwd}
-          >
-            <PasswordIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Supprimer">
-          <IconButton
-            aria-label="Supprimer"
-            className={classes.btnSupprimer}
-            onClick={this.deleteAccount}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-        </div>
-      </CardActions>
+      cardAction.push(
+          <Tooltip title="Accès au serveur">
+            <IconButton aria-label="Acces"
+                        onClick={(e) => this.serverAccess()}
+            >
+              <AccessIcon />
+            </IconButton>
+          </Tooltip>);
+      cardAction.push(
+          <div className={classes.rightIcon}>
+            <Tooltip title="Modifer le mot de passe">
+              <IconButton aria-label="Mot de passe"
+                          onClick={this.modifyAccountPwd}
+              >
+                <PasswordIcon />
+              </IconButton>
+            </Tooltip>
+          </div>);
+
+      if (account.nbDatabases === 0) {
+        cardAction.push(
+          <Tooltip title="Supprimer">
+            <IconButton
+              aria-label="Supprimer"
+              className={classes.btnSupprimer}
+              onClick={this.deleteAccount}
+            >
+              <DeleteIcon/>
+            </IconButton>
+          </Tooltip>);
+      }
+
     } else {
       cardContent = <CardContent>
         <Typography gutterBottom variant="h5" component="h2">
@@ -101,7 +115,7 @@ class AccountCard extends Component {
         </Typography>
       </CardContent>;
 
-      cardAction = <CardActions>
+      cardAction =
         <Tooltip title="Ajouter un compte">
           <IconButton
             color={"primary"}
@@ -112,8 +126,6 @@ class AccountCard extends Component {
             <AddIcon className={classes.rightIcon} />
           </IconButton>
         </Tooltip>
-
-      </CardActions>
     }
 
     return (
@@ -133,7 +145,9 @@ class AccountCard extends Component {
 
           {cardContent}
 
-          {cardAction}
+          <CardActions>
+            {cardAction}
+          </CardActions>
 
         </Card>
 

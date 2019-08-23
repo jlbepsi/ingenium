@@ -69,7 +69,7 @@ class AccountsList extends Component {
     this.setState({ dialogdeleteaccount: true });
   };
   deleteAccountConfirmed = () => {
-    this.props.handleDeleteAccount(this.state.accountSelected.SqlLogin, this.state.accountSelected.DatabaseServerName.Code);
+    this.props.handleDeleteAccount(this.state.accountSelected.SqlLogin, this.state.accountSelected.DatabaseServerName.Id);
     this.setState({ accountSelected: dummyAccount });
     this.setState({ dialogdeleteaccount: false });
   };

@@ -14,15 +14,17 @@ import DashboardLayout from '../layouts/DashboardLayout';
 import DatabaseInfo from "./components/DatabaseInfo";
 import WebStorageInfo from "./components/WebStorageInfo";
 import SuiviPPEInfo from "./components/SuiviPPEInfo";
+import AuthService from "../../services/Security/AuthService";
+import DatabasesAPI from "../../services/DatabasesAPI";
 
 
 // Component styles
 const styles = theme => ({
   root: {
-    padding: theme.spacing.unit * 3
+    padding: theme.spacing(3)
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   btnAction: {
 
@@ -55,15 +57,60 @@ const styles = theme => ({
     width: '6rem'
   },
   footer: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
     display: 'flex',
     alignItems: 'center'
   },
 });
 
 class Dashboard extends Component {
+
+  state = {
+    nbDatabases: 0,
+  };
+
+  profile = null;
+
+  // API
+  databasesAPI = new DatabasesAPI();
+
+  componentDidMount() {
+    /*
+     * Obtention de l'utilisateur connecté
+     */
+    this.profile = AuthService.getProfile();
+
+    /*
+     * Chargement des bases de données
+     */
+    this.setState({isLoadingDatabases: true});
+    this.databasesAPI.getDatabases(this.profile.sub)
+      .then(data => {
+        this.setState({nbDatabases: data.length});
+      })
+      .catch(err => {
+      });
+
+  }
   render() {
     const { classes } = this.props;
+    const profile = AuthService.getProfile();
+    const nbDatabases = this.state.nbDatabases;
+
+    const suiviPPE = (profile.bts ?
+      <Grid
+        item
+        lg={3}
+        sm={6}
+        xl={3}
+        xs={12}
+      >
+        <SuiviPPEInfo classes={classes} classeName={classes.item} profil={profile} />
+      </Grid> :
+        ""
+    );
+
+    /** TODO : Faire le dashboard pour les bases de données et le Web FTP */
 
     return (
       <DashboardLayout title="Dashboard">
@@ -79,7 +126,7 @@ class Dashboard extends Component {
               xl={3}
               xs={12}
             >
-              <DatabaseInfo classes={classes} classeName={classes.item} />
+              <DatabaseInfo classes={classes} classeName={classes.item} nbDatabases={nbDatabases} />
             </Grid>
 
             <Grid
@@ -92,15 +139,7 @@ class Dashboard extends Component {
               <WebStorageInfo classes={classes} classeName={classes.item} />
             </Grid>
 
-            <Grid
-              item
-              lg={3}
-              sm={6}
-              xl={3}
-              xs={12}
-            >
-              <SuiviPPEInfo classes={classes} classeName={classes.item} />
-            </Grid>
+            {suiviPPE}
           </Grid>
         </div>
       </DashboardLayout>

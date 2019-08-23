@@ -27,7 +27,7 @@ export default theme => ({
   },
   errorMessages: {
     height: 50,
-    marginTop: theme.spacing.unit *2,
+    marginTop: theme.spacing(2),
     color: red,
     backgroundColor: lavenderblush
   },

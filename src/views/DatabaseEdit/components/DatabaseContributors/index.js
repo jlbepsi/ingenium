@@ -80,13 +80,34 @@ class DatabaseContributors extends Component {
     this.props.handleDeleteContributor(this.state.sqlLogin);
   };
 
-  renderRow(contributor, classes) {
+  renderContributors(database, classes) {
+    let rows = [], cptAdmins = 0;
+    // On compte d'abord le nb d'administrateur
+    database.DatabaseGroupUsers.forEach((contributor) => {
+      if (contributor.GroupType === 1)
+        cptAdmins++;
+    });
 
+    // Puis on affiche les éléments : si il n'ya qu'un seul administrateur il ne peut pas être supprimé ni modifié
+    database.DatabaseGroupUsers.forEach((contributor) => {
+      rows.push(this.renderRow(contributor, cptAdmins, classes))
+    });
+
+    return rows;
+  };
+
+  renderRow(contributor, cptAdmins, classes) {
     const persmisson = getPermission(contributor.GroupType);
     const fullName = (contributor.UserFullName === null ? "Non" : contributor.UserFullName);
 
+    let contributorCanBeUpdated = contributor.CanBeUpdated, contributorCanBeDeleted = contributor.CanBeDeleted;
+    // si il n'ya qu'un seul administrateur il ne peut pas être ni supprimé ni modifié
+    if (contributor.GroupType === 1 && cptAdmins <= 1) {
+      contributorCanBeUpdated = contributorCanBeDeleted = false;
+    }
+
     let actions = [];
-    if (contributor.CanBeUpdated) {
+    if (contributorCanBeUpdated) {
       actions.push(
         <Tooltip title="Modifier le contributeur">
           <IconButton
@@ -99,7 +120,7 @@ class DatabaseContributors extends Component {
         </Tooltip>
       );
     }
-    if (contributor.CanBeDeleted) {
+    if (contributorCanBeDeleted) {
       actions.push(
         <Tooltip title="Supprimer le contributeur">
           <IconButton
@@ -166,7 +187,7 @@ class DatabaseContributors extends Component {
         }
 
         <Paper>
-          <Table className={classes.table}>
+          <Table className={classes.table} size={"small"}>
             <TableHead>
               <TableRow>
                 <TableCell>Contributeur EPSI</TableCell>
@@ -176,9 +197,7 @@ class DatabaseContributors extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {database.DatabaseGroupUsers.map(contributor => (
-                this.renderRow(contributor, classes)
-              ))}
+              {this.renderContributors(database, classes)}
             </TableBody>
           </Table>
 

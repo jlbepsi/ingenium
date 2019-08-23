@@ -26,7 +26,7 @@ function AccountListItem(props) {
       className={classes.listItem}
       key={account.DatabaseServerName.Id}
       button
-      selected={accountId===account.DatabaseServerName.Id + '-' + account.SqlLogin}
+      selected={accountId===account.DatabaseServerName.Id}
       onClick={handleToggle}
     >
       <ListItemAvatar
@@ -39,7 +39,7 @@ function AccountListItem(props) {
       </ListItemAvatar>
       <ListItemText
         classes={{ primary: classes.listItemText }}
-        primary={account.DatabaseServerName.NomDNS + " (" + account.SqlLogin + ")"}
+        primary={account.DatabaseServerName.NomDNS}
         secondary={account.DatabaseServerName.Description}
       />
     </ListItem>

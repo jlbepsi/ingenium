@@ -45,7 +45,11 @@ function DialogAddDatabase(props) {
   };
 
   function handleAction () {
-    onActionValidate(dbName, accountId);
+    // Account id est de la forme: ServerId-LoginSQL
+    const indexOf = accountId.indexOf('-');
+    const serverId = accountId.substr(0, indexOf);
+
+    onActionValidate(dbName, serverId);
     setDbName('');
     setAccountId('');
   }

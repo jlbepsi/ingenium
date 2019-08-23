@@ -142,7 +142,7 @@ function DialogModifyAccount(props) {
               variant="outlined"
               onChange={handleChangePassword}
 
-              error={ btnAddDisabled & (PASSWORD_EMPTY | PASSWORD_LENGTH_INF | PASSWORD_NOT_EQUAL_PASSWORDCONFIRM_EMPTY) }
+              error={ (btnAddDisabled & (PASSWORD_EMPTY | PASSWORD_LENGTH_INF | PASSWORD_NOT_EQUAL_PASSWORDCONFIRM_EMPTY)) !== 0 }
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
@@ -155,7 +155,7 @@ function DialogModifyAccount(props) {
               variant="outlined"
               onChange={handleChangeConfirmPassword}
 
-              error={ btnAddDisabled & (PASSWORDCONFIRM_EMPTY | PASSWORD_NOT_EQUAL_PASSWORDCONFIRM_EMPTY) }
+              error={ (btnAddDisabled & (PASSWORDCONFIRM_EMPTY | PASSWORD_NOT_EQUAL_PASSWORDCONFIRM_EMPTY)) !== 0 }
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
@@ -172,7 +172,7 @@ function DialogModifyAccount(props) {
 
 
         <ButtonStyled
-          text='Ajouter'
+          text='Modifier'
           variant={"success"}
           disabled={btnAddDisabled !== 0x0}
           onClick={handleAction}

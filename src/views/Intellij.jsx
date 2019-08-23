@@ -17,9 +17,9 @@ import DashboardLayout from './layouts/DashboardLayout';
 const styles = theme => ({
   root: {
     width: 'auto',
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 4,
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    padding: theme.spacing(4),
   },
   displayText: {
     marginBottom: 16,

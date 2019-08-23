@@ -3,8 +3,8 @@ import decode from 'jwt-decode';
 
 export default class AuthService {
   // Initializing important variables
-  constructor(domain) {
-    this.domain = domain || 'http://192.168.100.185:8081/api/auth'; // API server domain
+  constructor() {
+    this.domain = 'http://localhost:8081/api/auth'; // API server domain
     AuthService.fetch = AuthService.fetch.bind(this); // React binding stuff
     this.login = this.login.bind(this)
   }
@@ -14,12 +14,11 @@ export default class AuthService {
   }
 
   loginWithRole(username, password, role) {
-    /* TODO : activate Authentication */
-    AuthService.setToken({login: username}); // Setting the token in localStorage
-    return true;
-
     // Get a token from api server using the fetch api
-    /*
+
+    /* TOD : activate Authentication
+    AuthService.setToken({name: username}); // Setting the token in sessionStorage
+    */
     return AuthService.fetch(`${this.domain}/login`, {
       method: 'POST',
       body: JSON.stringify({
@@ -29,10 +28,9 @@ export default class AuthService {
       })
     }).then(res => {
       console.log("AuthService.login");
-      AuthService.setToken(res.token); // Setting the token in localStorage
+      AuthService.setToken(res.token); // Setting the token in sessionStorage
       return Promise.resolve(res);
     })
-    */
   }
 
   static isLoggedIn() {
@@ -43,34 +41,36 @@ export default class AuthService {
 
   static isTokenExpired(token) {
     try {
-      /* TODO : activate Authentication */
-      return false;
-      /*
+      /* TOD : activate Authentication
+      return false;*/
+
       const decoded = decode(token);
       return decoded.exp < Date.now() / 1000;
-      */
-    }
-    catch (err) {
+    } catch (err) {
       return false;
     }
   }
 
+
   static setToken(idToken) {
-    // Saves user token to localStorage
-    localStorage.setItem('id_token', idToken)
+    // Saves user token to sessionStorage
+    sessionStorage.setItem('id_token', idToken)
   }
 
   static getToken() {
-    // Retrieves the user token from localStorage
-    return localStorage.getItem('id_token')
+    // Retrieves the user token from sessionStorage
+    return sessionStorage.getItem('id_token')
   }
 
   static logout() {
-    // Clear user token and profile data from localStorage
-    localStorage.removeItem('id_token');
+    // Clear user token and profile data from sessionStorage
+    sessionStorage.removeItem('id_token');
   }
 
   static getProfile() {
+    /* TOD : activate Authentication
+    return AuthService.getToken();*/
+
     // Using jwt-decode npm package to decode the token
     return decode(AuthService.getToken());
   }
@@ -92,16 +92,28 @@ export default class AuthService {
 
     return fetch(url, fetchData)
       .then(AuthService._checkStatus)
-      .then(response => response.json())
-  }
-
-  static _checkStatus(response) {
-    // raises an error in case response status is not a success
-    if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
-      return response;
+        .then(AuthService._parseJSON)
+        .catch(err =>
+            Promise.reject({
+              type: 'Erreur réseau',
+              status: -1,
+              message: err,
+            })
+        );
     }
+
+    static _checkStatus(response) {
+      // raises an error in case response status is not a success
+      if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
+        return response;
+      }
 
     console.log(response);
     throw new Error(response.statusText);
+  }
+
+  static _parseJSON(response) {
+    // Certaines réponses ne contiennent pas de JSON, exemple: HTTP DELETE
+    return response.text().then(text => text ? JSON.parse(text) : {});
   }
 }

@@ -24,7 +24,7 @@ export default theme => ({
     cursor: 'pointer'
   },
   logoDivider: {
-    marginBottom: theme.spacing.unit * 2
+    marginBottom: theme.spacing(2)
   },
   profile: {
     display: 'flex',
@@ -37,12 +37,12 @@ export default theme => ({
     height: '100px'
   },
   nameText: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing(2)
   },
   bioText: {},
   profileDivider: {
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit * 2
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2)
   },
   listSubheader: {
     color: white,
@@ -84,7 +84,7 @@ export default theme => ({
     color: theme.palette.text.secondary,
   },
   listDivider: {
-    marginBottom: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit * 2
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2)
   }
 });

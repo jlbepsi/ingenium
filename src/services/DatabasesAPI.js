@@ -1,100 +1,46 @@
 import BaseAPI from "./BaseAPI";
 
-import databases from './mockup/databases'
-
-export default class DatabasesAPI { //extends BaseAPI {
+export default class DatabasesAPI extends BaseAPI {
 
   constructor() {
-    //super('http://database.ws.montpellier.epsi.fr/api/databases');
-
-    this.databasesMock = databases;
+    super('http://database.ws.montpellier.epsi.fr/api/databases');
   }
 
 
-  getDatabases() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(this.databasesMock);
-      }, 700);
-    });
+  getDatabases(login) {
+    return super.apiFetchWithData('/login/' + login, 'GET', null);
   }
 
   getDatabase(id) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const database = this.databasesMock.find(database => database.Id === id);
-
-        if (database) {
-          resolve(database);
-        } else {
-          reject({
-            error: 'Base de données non trouvée'
-          });
-        }
-      }, 500);
-    });
+    return super.apiGet(id);
   }
 
-  addDatabase(name, accountid) {
-    let newDatabase =
+  addDatabase(name, serverId, userLogin, userFullName) {
+    const newDatabase =
       {
-        "DatabaseGroupUsers":[
-          {
-            "DbId":111,
-            "SqlLogin":"test.v8",
-            "UserLogin":"test.v8",
-            "UserFullName":"V8 Test",
-            "GroupType":1,
-            "AddedByUserLogin":"test.v8"
-          }
-        ],
-        "DatabaseServerName":{
-          "Id":3,
-          "Code":"mysql",
-          "Name":"MySQL test",
-          "IPLocale":"0.0.0.0",
-          "NomDNS":"mysql.montpellier.epsi.fr",
-          "Description": "MySQL",
-          "CanAddDatabase":1
-        },
-        "Id":111,
-        "ServerId":0,
-        "NomBD":name,
-        "DateCreation":"2019-06-18",
-        "Commentaire":"bla bla"
+        "ServerId": serverId,
+        "NomBD": name,
+        "UserLogin": userLogin,
+        "UserFullName": userFullName
       };
 
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-          resolve(newDatabase);
-      }, 500);
-    });
+    return super.apiPost(newDatabase);
   }
 
-  updateDatabase(databaseUpdated) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const database = this.databasesMock.find(database => database.Id === databaseUpdated.Id);
+  updateDatabase(database, userLogin) {
+    const databaseUpdated =
+      {
+        "Id": database.Id,
+        "ServerId": database.ServerId,
+        "NomBD": database.NomBD,
+        "UserLogin": userLogin,
+        "Commentaire": database.Commentaire
+      };
 
-        if (database) {
-          resolve(database);
-        } else {
-          reject({
-            error: 'Base de données non trouvée'
-          });
-        }
-      }, 500);
-    });
+    return super.apiPut(databaseUpdated.Id, databaseUpdated);
   }
 
   deleteDatabase(id) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-
-        this.databasesMock = this.databasesMock.filter(d => d.Id !== id);
-
-        resolve(null);
-      }, 500);
-    });
+    return super.apiDelete(id);
   }
 }

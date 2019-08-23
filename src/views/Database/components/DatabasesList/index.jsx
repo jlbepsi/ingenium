@@ -44,10 +44,10 @@ class DatabasesList extends Component {
     this.setState({ dialogadddatabase: true });
   };
 
-  addDatabaseConfirmed = (dbName, accountId) => {
+  addDatabaseConfirmed = (name, serverId) => {
     this.setState({ dialogadddatabase: false });
 
-    this.props.handleAddDatabase(dbName, accountId);
+    this.props.handleAddDatabase(name, serverId);
   };
 
   modifyDatabase = (database) => {
@@ -71,7 +71,7 @@ class DatabasesList extends Component {
 
 
   renderRow(database, classes) {
-    const databaseIconUrl = '/images/databases/' + database.DatabaseServerName.Code + '.png';
+    const databaseIconUrl = '/images/databases/' + database.DatabaseServerName.Code.trim().toLowerCase() + '.png';
 
     let contributors = [];
     database.DatabaseGroupUsers.forEach( contributor => {
@@ -123,15 +123,18 @@ class DatabasesList extends Component {
     return <TableRow key={database.Id} hover>
       <TableCell>
         <img
+          width={40}
           alt="Database"
           src={databaseIconUrl}
         />
+      </TableCell>
+      <TableCell>
+        {database.DatabaseServerName.NomDNS}
       </TableCell>
       <TableCell><b>{database.NomBD}</b></TableCell>
       <TableCell>{database.Commentaire}</TableCell>
       <TableCell>{contributors}</TableCell>
       <TableCell>
-
         {actions}
       </TableCell>
     </TableRow>
@@ -155,10 +158,11 @@ class DatabasesList extends Component {
         </Button>
 
         <Paper>
-          <Table className={classes.table}>
+          <Table className={classes.table} size={"small"}>
             <TableHead>
               <TableRow>
-                <TableCell>Type</TableCell>
+                <TableCell>&nbsp;</TableCell>
+                <TableCell>Serveur</TableCell>
                 <TableCell>Nom</TableCell>
                 <TableCell>Description</TableCell>
                 <TableCell>Contributeurs</TableCell>

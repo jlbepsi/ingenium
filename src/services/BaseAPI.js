@@ -1,5 +1,4 @@
-/** TODO : importer la classe AuthService */
-// import AuthService from "../Security/AuthService";
+import AuthService from "./Security/AuthService";
 
 export default class BaseAPI {
 
@@ -10,7 +9,9 @@ export default class BaseAPI {
 
   apiGetAll(){
 
-    return fetch(this.domain)
+    return this.apiFetchGet(null);
+
+    /*return fetch(this.domain)
       .then(BaseAPI._checkStatus)
       .then(response => response.json())
       .catch(err =>
@@ -19,10 +20,10 @@ export default class BaseAPI {
           status: -1,
           message: err,
         })
-      );
+      );*/
   }
 
-  apiGetAllWithOption(urlOption){
+  /*apiGetAllWithOption(urlOption){
 
     return fetch(this.domain + '/' + urlOption)
       .then(BaseAPI._checkStatus)
@@ -34,9 +35,12 @@ export default class BaseAPI {
             message: err,
           })
         );
-  }
+  }*/
+
   apiGet(id){
-    const url = this.domain + '/' + id;
+    return this.apiFetchGet(id);
+
+    /*const url = this.domain + '/' + id;
     return fetch(url)
       .then(BaseAPI._checkStatus)
       .then(response => response.json())
@@ -46,8 +50,9 @@ export default class BaseAPI {
           status: -1,
           message: err,
         })
-      );
+      );*/
   }
+
   apiPost(data) {
     return this.apiFetchWithData(null, 'POST', data);
   }
@@ -64,22 +69,31 @@ export default class BaseAPI {
     return this.apiFetchWithData(idOrUrl, 'DELETE', data);
   }
 
-
+  apiFetchGet(id) {
+    return this.apiFetchWithData(id, 'GET', null);
+  }
 
   apiFetchWithData(urlToAdd, method, data) {
+    console.log('apiFetchWithData')
+    console.log(AuthService.getToken())
 
     // Données
     let fetchData = {
       method: method,
       headers: {
         'Content-Type': 'application/json',
-        /** TODO : ajouter le token à l'appel API */
-        //'Authorization': 'Bearer ' + AuthService.getToken()
-      },
-      body: (data == null ? '' : JSON.stringify(data))
+        'Authorization': 'Bearer ' + AuthService.getToken()
+      }
     };
+    if (data !== null) {
+      // Ajout des données
+      fetchData.body = JSON.stringify(data);
+    }
 
     const url = this.domain + (urlToAdd == null ? '' : '/' + urlToAdd);
+    console.log(url)
+    console.log(method)
+    console.log(data)
 
     return fetch(url, fetchData)
       .then(BaseAPI._checkStatus)

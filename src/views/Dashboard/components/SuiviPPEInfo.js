@@ -10,16 +10,12 @@ import GoIcon from "@material-ui/icons/KeyboardArrowRight";
 
 import Icon from "@mdi/react";
 import {mdiAccount} from "@mdi/js";
+import Link from "@material-ui/core/Link";
 
 
 
 function SuiviPPEInfo(props) {
-
-  function goTo() {
-    props.history.push("/suivippe");
-  }
-
-  const { classes} = props;
+  const { classes, profil } = props;
 
   return (
     <Paper
@@ -37,7 +33,7 @@ function SuiviPPEInfo(props) {
             className={classes.value}
             variant="h1"
           >
-            SLAM
+            { profil.btsparcours }
           </Typography>
           <Typography
             className={classes.title}
@@ -49,14 +45,14 @@ function SuiviPPEInfo(props) {
       </div>
       <Divider />
       <div className={classes.footer}>
+
         <Button
           variant="outlined"
           color={"primary"}
           fullWidth
           size={"small"}
-          onClick={goTo}
         >
-          Voir le détail
+          <Link target="_blank"  href='https://newsuivippe.montpellier.epsi.fr' rel="noopener">Accéder au site</Link>
           <GoIcon />
         </Button>
       </div>

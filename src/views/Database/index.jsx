@@ -23,6 +23,7 @@ import DatabaseList from "./components/DatabasesList";
 import DatabasesAPI from "../../services/DatabasesAPI";
 import SnackbarContentWrapper from "../share/SnackbarContentWrapper";
 import AccountsAPI from "../../services/AccountsAPI";
+import AuthService from "../../services/Security/AuthService";
 
 
 class Database extends Component {
@@ -37,6 +38,7 @@ class Database extends Component {
     snackbarIcon: '',
     snackbarMessage: ''
   };
+  profile = null;
 
 
   // API
@@ -44,14 +46,20 @@ class Database extends Component {
   accountsAPI = new AccountsAPI();
 
   componentDidMount() {
-    console.log('DatabaseInfo - componentDidMount')
+    /*
+     * Obtention de l'utilisateur connecté
+     */
+    this.profile = AuthService.getProfile();
+
     /*
      * Chargement des comptes des serveurs de base de données
      */
     this.setState({isLoadingAccounts: true});
-    this.accountsAPI.getAccounts()
+    this.accountsAPI.getAccounts(this.profile.sub)
       .then(data => {
         this.setState({isLoadingAccounts: false});
+
+        data = this.accountAnalysis(data);
         this.setState({accounts: data})
       })
       .catch(err => {
@@ -66,9 +74,10 @@ class Database extends Component {
      * Chargement des bases de données
      */
     this.setState({isLoadingDatabases: true});
-    this.databasesAPI.getDatabases()
+    this.databasesAPI.getDatabases(this.profile.sub)
       .then(data => {
         this.setState({isLoadingDatabases: false});
+        this.databaseAnalysis(data);
         this.setState({databases: data})
       })
       .catch(err => {
@@ -78,6 +87,29 @@ class Database extends Component {
         this.setState({ openSnackBar: true });
       });
 
+  }
+
+  accountAnalysis(data) {
+    if (this.state.databases.length > 0) {
+      data.forEach( (account) => {
+        console.log(account.DatabaseServerName.NomDNS)
+        let dbFound = this.state.databases.filter(db => db.ServerId !== account.DatabaseServerName.Id);
+        account.nbDatabases = (dbFound === null ? 0 : dbFound.length);
+      })
+    }
+    return data;
+  }
+  databaseAnalysis(data) {
+    let accounts = this.state.accounts;
+
+    if (accounts.length > 0) {
+      accounts.forEach( (account) => {
+        let dbFound = data.filter(db => db.ServerId === account.DatabaseServerName.Id);
+        console.log(dbFound)
+        account.nbDatabases = (dbFound === null ? 0 : dbFound.length);
+      });
+      this.setState( { accounts : accounts });
+    }
   }
 
   openSnackbar(icon, message) {
@@ -100,12 +132,11 @@ class Database extends Component {
    */
 
   addAccountConfirmed = (password, serverid) => {
-    /** TODO: récupérer l'identifiant de l'utilisateur connecté */
     const newAccount =
     {
-      "user": "test.v8",
-      "password": password,
       "serverid": serverid,
+      "user": this.profile.sub,
+      "password": password,
     };
 
     this.accountsAPI.addAccount(newAccount)
@@ -121,6 +152,7 @@ class Database extends Component {
         let account = dataAccounts.find(account => account.DatabaseServerName.Id === newAccount.serverid);
         account.SqlLogin = data.SqlLogin;
         account.UserLogin = data.UserLogin;
+        account.nbDatabases = 0;
 
         this.setState({accounts: dataAccounts});
       })
@@ -134,7 +166,7 @@ class Database extends Component {
   modifyAccountConfirmed = (sqllogin, password, serverid) => {
     const account =
       {
-        "loginsql": "test.v8",
+        "user": this.profile.sub,
         "password": password,
         "serverid": serverid,
       };
@@ -151,16 +183,24 @@ class Database extends Component {
   };
 
 
-  deleteAccountConfirmed = (loginsql, servercode) => {
+  deleteAccountConfirmed = (loginsql, serverid) => {
+    const account =
+      {
+        "user": loginsql,
+        "serverid": serverid,
+      };
+
     // Suppression du compte
-    this.accountsAPI.deleteAccount(loginsql, servercode)
+    this.accountsAPI.deleteAccount(account)
       .then(data => {
         this.openSnackbar("success", "Compte SQL supprimé !");
 
         let dataAccounts = this.state.accounts;
         dataAccounts.forEach( (account) => {
-            if (account.DatabaseServerName.Code === servercode && account.SqlLogin === loginsql) {
+            if (account.DatabaseServerName.Id === serverid && account.SqlLogin === loginsql) {
               account.SqlLogin = null;
+              account.UserLogin = null;
+              account.nbDatabases = 0;
             }
           }
         );
@@ -179,10 +219,8 @@ class Database extends Component {
    *
    */
 
-  addDatabaseConfirmed = (name, accountid) => {
-    //alert("addDatabaseConfirmed:" + dbName + "," + accountId);
-
-    this.databasesAPI.addDatabase(name, accountid)
+  addDatabaseConfirmed = (name, serverId) => {
+    this.databasesAPI.addDatabase(name, serverId, this.profile.sub, this.profile.nom + " " + this.profile.prenom)
       .then(data => {
         this.openSnackbar("success", "Base de données ajouté !");
 
