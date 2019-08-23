@@ -110,8 +110,6 @@ class Dashboard extends Component {
         ""
     );
 
-    /** TODO : Faire le dashboard pour les bases de données et le Web FTP */
-
     return (
       <DashboardLayout title="Dashboard">
         <div className={classes.root}>
