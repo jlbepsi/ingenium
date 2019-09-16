@@ -4,7 +4,7 @@ import decode from 'jwt-decode';
 export default class AuthService {
   // Initializing important variables
   constructor() {
-    this.domain = 'http://localhost:8081/api/auth'; // API server domain
+    this.domain = 'https://users.ws.montpellier.epsi.fr/api/auth'; // API server domain
     AuthService.fetch = AuthService.fetch.bind(this); // React binding stuff
     this.login = this.login.bind(this)
   }

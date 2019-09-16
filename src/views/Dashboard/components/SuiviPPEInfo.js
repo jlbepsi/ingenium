@@ -15,7 +15,7 @@ import Link from "@material-ui/core/Link";
 
 
 function SuiviPPEInfo(props) {
-  const { classes, profil } = props;
+  const { classes, profile } = props;
 
   return (
     <Paper
@@ -33,7 +33,7 @@ function SuiviPPEInfo(props) {
             className={classes.value}
             variant="h1"
           >
-            { profil.btsparcours }
+            { profile.btsparcours }
           </Typography>
           <Typography
             className={classes.title}

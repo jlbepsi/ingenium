@@ -3,12 +3,15 @@ import BaseAPI from "./BaseAPI";
 export default class AccountsAPI extends BaseAPI {
 
   constructor() {
-    super('http://database.ws.montpellier.epsi.fr/api/accounts');
+    super('https://database.ws.montpellier.epsi.fr/api/accounts');
   }
 
 
   getAccounts(login) {
     return super.apiFetchWithData('/userlogin/' + login, 'GET', null);
+  }
+  getServerAccounts(serverid) {
+    return super.apiFetchWithData('/serverid/' + serverid, 'GET', null);
   }
 
   getAccount(id) {

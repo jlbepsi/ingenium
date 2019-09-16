@@ -88,7 +88,7 @@ class Sidebar extends Component {
             />
           </Link>
         </div>
-        <Divider className={classes.logoDivider} />
+        <Divider />
         <div className={classes.profile}>
           <Link to="/account">
             <PeopleIcon className={classes.icon} />
@@ -107,7 +107,7 @@ class Sidebar extends Component {
           </Typography>
         </div>
 
-        <Divider className={classes.profileDivider} />
+        <Divider />
 
         <List
           component="div"
@@ -129,14 +129,14 @@ class Sidebar extends Component {
           </ListItem>
         </List>
 
-        <Divider className={classes.listDivider} />
+        <Divider />
         <MenuList
           classes={classes}
           title='Services'
           menuList={menuListUser}
         />
 
-        <Divider className={classes.listDivider} />
+        <Divider />
         <MenuList
           classes={classes}
           title='Logiciels'
@@ -164,7 +164,7 @@ class Sidebar extends Component {
           ]}
         />
 
-        <Divider className={classes.listDivider} />
+        <Divider />
         <MenuList
           classes={classes}
           title='Ressources'

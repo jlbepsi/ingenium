@@ -15,7 +15,6 @@ import DatabaseInfo from "./components/DatabaseInfo";
 import WebStorageInfo from "./components/WebStorageInfo";
 import SuiviPPEInfo from "./components/SuiviPPEInfo";
 import AuthService from "../../services/Security/AuthService";
-import DatabasesAPI from "../../services/DatabasesAPI";
 
 
 // Component styles
@@ -65,37 +64,11 @@ const styles = theme => ({
 
 class Dashboard extends Component {
 
-  state = {
-    nbDatabases: 0,
-  };
-
   profile = null;
 
-  // API
-  databasesAPI = new DatabasesAPI();
-
-  componentDidMount() {
-    /*
-     * Obtention de l'utilisateur connecté
-     */
-    this.profile = AuthService.getProfile();
-
-    /*
-     * Chargement des bases de données
-     */
-    this.setState({isLoadingDatabases: true});
-    this.databasesAPI.getDatabases(this.profile.sub)
-      .then(data => {
-        this.setState({nbDatabases: data.length});
-      })
-      .catch(err => {
-      });
-
-  }
   render() {
     const { classes } = this.props;
     const profile = AuthService.getProfile();
-    const nbDatabases = this.state.nbDatabases;
 
     const suiviPPE = (profile.bts ?
       <Grid
@@ -105,7 +78,7 @@ class Dashboard extends Component {
         xl={3}
         xs={12}
       >
-        <SuiviPPEInfo classes={classes} classeName={classes.item} profil={profile} />
+        <SuiviPPEInfo classes={classes} classeName={classes.item} profile={profile} />
       </Grid> :
         ""
     );
@@ -124,7 +97,7 @@ class Dashboard extends Component {
               xl={3}
               xs={12}
             >
-              <DatabaseInfo classes={classes} classeName={classes.item} nbDatabases={nbDatabases} />
+              <DatabaseInfo classes={classes} classeName={classes.item}  profile={profile}  />
             </Grid>
 
             <Grid

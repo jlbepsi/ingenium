@@ -85,18 +85,8 @@ class DatabaseEdit extends Component {
    */
 
   addContributor = (loginsql, fullname, password, permissionid) => {
-/*
+    console.log("DatabaseEdit-addContributor=" + loginsql + ","+fullname)
 
-    public class GroupUserModel
-    {
-        public int DbId { get; set; }
-        public string SqlLogin { get; set; }
-        public string UserLogin { get; set; }
-        public string UserFullName { get; set; }
-        public string Password { get; set; }
-        public int GroupType { get; set; }
-    }
- */
     let newContributor =
       {
         "DbId": this.state.database.Id,

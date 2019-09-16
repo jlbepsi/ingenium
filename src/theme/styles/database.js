@@ -1,4 +1,5 @@
 import {lavenderblush, red} from "../../common/colors";
+import { amber } from '@material-ui/core/colors';
 
 export default theme => ({
 
@@ -44,6 +45,11 @@ export default theme => ({
     flexWrap: 'wrap',
     width: '100%',
     margin: '8px',
+  },
+  formControlSelect: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: '100%',
   },
   formControlDisabled: {
     color: theme.palette.primary.dark,
@@ -112,5 +118,16 @@ export default theme => ({
   listItemText: {
     fontWeight: 500,
     color: theme.palette.text.secondary,
+  },
+
+  snackMessage: {
+    margin: '8px',
+    backgroundColor: amber[700],
+  },
+
+  snackMessageContent: {
+    backgroundColor: amber[700],
+    display: 'flex',
+    alignItems: 'center',
   },
 });

@@ -48,7 +48,7 @@ function DialogAddContributor(props) {
     }, [loginsql, password, passwordConfirm, permissionid]
   );
 
-  const { classes, permissions, onClose, onActionValidate, ...other } = props;
+  const { classes, permissions, serverid, onClose, onActionValidate, ...other } = props;
 
   function handleSubmit () {
     onActionValidate(loginsql, fullname, password, permissionid);
@@ -160,6 +160,7 @@ function DialogAddContributor(props) {
             <FormEPSIContributor
               classes={classes}
               loginsql={loginsql}
+              serverid={serverid}
               onChangeLogin={handleChangeLoginsql}
             />
           }

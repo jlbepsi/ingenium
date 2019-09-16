@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Material helpers
-import {Typography, withStyles} from '@material-ui/core/index';
+import {StepContent, Typography, withStyles} from '@material-ui/core/index';
 
 // Material components
 import { Grid } from '@material-ui/core/index';

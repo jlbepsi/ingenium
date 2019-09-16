@@ -38,7 +38,7 @@ class DatabaseForm extends Component {
         <Typography variant='h5'>Aucune base de données sélectionnée.</Typography>
       );
     }
-
+    let date = new Date(database.DateCreation).toLocaleString('FR-fr', { year: 'numeric', month: 'long', day: 'numeric'});
     return (
         <form className={classes.form} autoComplete="off" >
           {! database.CanBeUpdated &&
@@ -67,7 +67,7 @@ class DatabaseForm extends Component {
                 fullWidth
                 disabled
 
-                value={database.DateCreation}
+                value={date}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={12}>

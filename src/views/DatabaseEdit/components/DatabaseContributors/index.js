@@ -51,6 +51,8 @@ class DatabaseContributors extends Component {
     this.setState({ dialogaddcontributor: true });
   };
   addContributorConfirmed = (loginsql, fullname, password, permissionid) => {
+    console.log("DatabaseContributors-addContributorConfirmed=" + loginsql + ","+fullname)
+
     this.setState({ dialogaddcontributor: false });
 
     this.props.handleAddContributor(loginsql, fullname, password, permissionid);
@@ -206,6 +208,7 @@ class DatabaseContributors extends Component {
             classes={classes}
             permissions={permissions}
             open={dialogaddcontributor}
+            serverid={database.ServerId}
             onClose={this.handleClose}
             onActionValidate={this.addContributorConfirmed}
           />

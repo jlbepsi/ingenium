@@ -4,13 +4,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Material helpers
-import {Typography, withStyles} from '@material-ui/core/index';
+import {Link, Typography, withStyles} from '@material-ui/core/index';
 
 // Material components
 import {Divider} from "@material-ui/core";
 
 // Shared layouts
 import DashboardLayout from '../layouts/DashboardLayout';
+import AuthService from "../../services/Security/AuthService";
 
 
 // Component styles
@@ -59,47 +60,62 @@ TabContainer.propTypes = {
 
 class WebStorage extends Component {
 
-  /*renderPrinters() {
-    const { classes } = this.props;
-
-    if (products.length === 0) {
-      return (
-        <Typography variant="h6">Aucun produit n'est disponible.</Typography>
-      );
-    }
-
-    return (
-      <Grid
-        container
-        spacing={3}
-      >
-        {printers.map(printer => (
-          <Grid
-            item
-            key={printer.id}
-            lg={4}
-            md={6}
-            xs={12}
-          >
-            <PrinterCard printer={printer} />
-          </Grid>
-        ))}
-      </Grid>
-    );
-  }*/
-
   render() {
     const { classes } = this.props;
+    const profile = AuthService.getProfile();
+    const url = "http://web.montpellier.epsi.fr/~" + profile.sub;
 
     return (
       <DashboardLayout title="Espace Web">
         <div className={classes.root}>
           <Typography variant="h4" gutterBottom>
-            WebStorage
+            Le serveur Web Apache
           </Typography>
           <Divider />
+          <Typography variant="body1"
+                      className={classes.displayTextHeader}
+          >
+            Votre espace web est presque prêt pour déposer vos pages HTML et PHP. Il faut faire les étapes suivantes:
+          </Typography>
 
+          <Typography variant="subtitle2" gutterBottom>
+            1 - Utiliser un client FTP tel que FileZilla
+          </Typography>
 
+          <Typography variant="subtitle2" gutterBottom>
+            2 - Entrer les informations de connexion suivantes
+          </Typography>
+          <Typography
+            className={classes.displayText}
+            variant="body1"
+          >
+            <ul>
+              <li>Serveur : <code>newftpweb.montpellier.epsi.fr</code></li>
+              <li>Identifiant : <i>votre login</i></li>
+              <li>Mot de passe: <i>Votre mot de passe</i></li>
+              <li>Port : <code>4623</code></li>
+            </ul>
+          </Typography>
+
+          <Typography variant="subtitle2" gutterBottom>
+            3 - Créer votre espace web
+          </Typography>
+          <Typography
+            className={classes.displayText}
+            variant="body1"
+          >
+            Pour afficher votre page personnelle, vous <b>devez créer un répertoire nommé "web"</b> à la racine de votre dossier
+          </Typography>
+
+          <Typography variant="subtitle2" gutterBottom>
+            4 - Accéder à votre espace web
+          </Typography>
+          <Typography
+            className={classes.displayText}
+            variant="body1"
+          >
+            Votre page personnelle est : <Link target="_blank"  href={url}  rel="noopener">{url}/</Link>
+          </Typography>
 
         </div>
       </DashboardLayout>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import GoIcon from "@material-ui/icons/KeyboardArrowRight";
 import Icon from "@mdi/react";
 import {mdiDatabase} from "@mdi/js";
+import DatabasesAPI from "../../../services/DatabasesAPI";
 
 
 function DatabaseInfo(props) {
@@ -17,7 +18,31 @@ function DatabaseInfo(props) {
     props.history.push("/database");
   }
 
-  const { nbDatabases, classes } = props;
+  const [nbDatabases, setNbDatabases] = React.useState("...");
+
+  // API
+  const databasesAPI = new DatabasesAPI();
+
+  const { classes, profile  } = props;
+
+  useEffect( () => {
+    /*
+     * Chargement des bases de données
+     */
+    //this.setState({isLoadingDatabases: true});
+    databasesAPI.getDatabases(profile.sub)
+      .then(data => {
+        setNbDatabases(data.length);
+        //this.setState({isLoadingDatabases: false});
+      })
+      .catch(err => {
+        setNbDatabases(0);
+        //this.setState({isLoadingDatabases: false});
+      });
+
+    }, []
+  );
+
 
   return (
     <Paper
@@ -65,7 +90,6 @@ function DatabaseInfo(props) {
 
 DatabaseInfo.propTypes = {
   classeName: PropTypes.string,
-  nbDatabases: PropTypes.number,
   classes: PropTypes.object.isRequired
 };
 

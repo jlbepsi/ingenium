@@ -10,17 +10,6 @@ export default class BaseAPI {
   apiGetAll(){
 
     return this.apiFetchGet(null);
-
-    /*return fetch(this.domain)
-      .then(BaseAPI._checkStatus)
-      .then(response => response.json())
-      .catch(err =>
-        Promise.reject({
-          type: 'Erreur réseau',
-          status: -1,
-          message: err,
-        })
-      );*/
   }
 
   /*apiGetAllWithOption(urlOption){
@@ -39,18 +28,6 @@ export default class BaseAPI {
 
   apiGet(id){
     return this.apiFetchGet(id);
-
-    /*const url = this.domain + '/' + id;
-    return fetch(url)
-      .then(BaseAPI._checkStatus)
-      .then(response => response.json())
-      .catch(err =>
-        Promise.reject({
-          type: 'Erreur réseau',
-          status: -1,
-          message: err,
-        })
-      );*/
   }
 
   apiPost(data) {

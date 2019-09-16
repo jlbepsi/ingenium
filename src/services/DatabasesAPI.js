@@ -3,7 +3,7 @@ import BaseAPI from "./BaseAPI";
 export default class DatabasesAPI extends BaseAPI {
 
   constructor() {
-    super('http://database.ws.montpellier.epsi.fr/api/databases');
+    super('https://database.ws.montpellier.epsi.fr/api/databases');
   }
 
 

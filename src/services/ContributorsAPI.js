@@ -4,7 +4,7 @@ import BaseAPI from "./BaseAPI";
 export default class ContributorsAPI extends BaseAPI {
 
   constructor() {
-    super('http://database.ws.montpellier.epsi.fr/api/contributors');
+    super('https://database.ws.montpellier.epsi.fr/api/contributors');
   }
 
   addContributor(newContributor) {
