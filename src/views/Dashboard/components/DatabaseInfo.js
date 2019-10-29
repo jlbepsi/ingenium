@@ -10,6 +10,7 @@ import GoIcon from "@material-ui/icons/KeyboardArrowRight";
 import Icon from "@mdi/react";
 import {mdiDatabase} from "@mdi/js";
 import DatabasesAPI from "../../../services/DatabasesAPI";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 function DatabaseInfo(props) {
@@ -18,7 +19,8 @@ function DatabaseInfo(props) {
     props.history.push("/database");
   }
 
-  const [nbDatabases, setNbDatabases] = React.useState("...");
+  const [nbDatabases, setNbDatabases] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   // API
   const databasesAPI = new DatabasesAPI();
@@ -29,15 +31,16 @@ function DatabaseInfo(props) {
     /*
      * Chargement des bases de données
      */
+    setLoading(true);
     //this.setState({isLoadingDatabases: true});
     databasesAPI.getDatabases(profile.sub)
       .then(data => {
+        setLoading(false);
         setNbDatabases(data.length);
-        //this.setState({isLoadingDatabases: false});
       })
       .catch(err => {
+        setLoading(false);
         setNbDatabases(0);
-        //this.setState({isLoadingDatabases: false});
       });
 
     }, []
@@ -61,7 +64,10 @@ function DatabaseInfo(props) {
             className={classes.value}
             variant="h1"
           >
-            {nbDatabases}
+            { loading ?
+              <CircularProgress /> :
+              <div>{nbDatabases}</div>
+            }
           </Typography>
           <Typography
             className={classes.title}

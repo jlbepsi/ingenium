@@ -15,6 +15,9 @@ import DatabaseInfo from "./components/DatabaseInfo";
 import WebStorageInfo from "./components/WebStorageInfo";
 import SuiviPPEInfo from "./components/SuiviPPEInfo";
 import AuthService from "../../services/Security/AuthService";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
 
 
 // Component styles
@@ -112,6 +115,30 @@ class Dashboard extends Component {
 
             {suiviPPE}
           </Grid>
+
+          <br />
+          <Divider />
+          <Paper className={classes.root}>
+            <Typography variant="h5" component="h3">
+              Mes sites
+            </Typography>
+            <Typography component="p">
+              Site <a href="https://aka.ms/devtoolsforteaching" target="_blank" rel="noopener noreferrer">Azure Dev Tools for Teaching</a> pour télécharger les versions de Windows, SQL Server, ...
+            </Typography>
+          </Paper>
+
+          <br />
+          <Paper className={classes.root}>
+            <Typography variant="h5" component="h3">
+              Mes contacts
+            </Typography>
+            <Typography component="p">
+              <ul>
+                <li>La majorité des services sont gérés par C&D. En cas de problèmes contacter le support C&D : <a href="mailto:support@reseau-cd.fr">support@reseau-cd.fr</a>.</li>
+                <li>Les imprimantes et le site Ingenium sont gérés par Montpellier : <a href="mailto:admin.reseau@montpellier-epsi.fr">administrateur réseau</a>.</li>
+              </ul>
+            </Typography>
+          </Paper>
         </div>
       </DashboardLayout>
     );

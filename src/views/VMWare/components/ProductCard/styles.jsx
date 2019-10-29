@@ -5,22 +5,7 @@ export default theme => ({
     paddingBottom: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingLeft: theme.spacing.unit,
-    /*paddingTop: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 3,
-    paddingLeft: theme.spacing.unit * 3*/
   },
-  /*imageWrapper: {
-    height: '64px',
-    width: '64px',
-    margin: '0 auto',
-    border: '1px solid #EDF0F2',
-    borderRadius: '5px',
-    overflow: 'hidden',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },*/
   image: {
     width: '40%',
   },

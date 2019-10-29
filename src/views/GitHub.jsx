@@ -43,7 +43,7 @@ class GitHub extends Component {
           </Typography>
           <Divider />
 
-          <Typography variant="body1"
+          <Typography variant="subtitle1"
                       className={classes.displayTextHeader}
           >
             Vous pouvez avoir plus de fonctionnalités sur GitHub avec votre adresse mail EPSI.
@@ -54,9 +54,9 @@ class GitHub extends Component {
           </Typography>
           <Typography
             className={classes.displayText}
-            variant="body1"
+            variant="subtitle1"
           >
-            Allez sur la <Link target="_blank"  href='https://gitlab.com/users/sign_in#register-pane' rel="noopener">page d'enregistrement</Link> (indiquez bien votre adresse mail @epsi.fr)
+            Allez sur la <Link target="_blank"  href='https://education.github.com/discount_requests/new' rel="noopener">page d'enregistrement</Link> (indiquez bien votre adresse mail @epsi.fr)
           </Typography>
 
           <Typography variant="subtitle2" gutterBottom>
@@ -64,7 +64,7 @@ class GitHub extends Component {
           </Typography>
           <Typography
             className={classes.displayText}
-            variant="body1"
+            variant="subtitle1"
           >
             Lors de l'utilisation de GitHub, vous avez plus de fonctionnalités qu'un utilisateur lambda
           </Typography>

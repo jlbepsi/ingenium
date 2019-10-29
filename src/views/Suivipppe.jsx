@@ -37,13 +37,13 @@ class Suivippe extends Component {
     const profile = AuthService.getProfile();
 
     const message = (profile.bts ?
-      <Typography variant="body1"
+      <Typography variant="subtitle1"
                   className={classes.displayTextHeader}
       >
           Vous devez utiliser le site de <Link target='_blank'  href='https://newsuivippe.montpellier.epsi.fr' rel='noopener'>suivi du BTS</Link> pour vos stages et situations.
       </Typography>
       :
-      <Typography variant="body1"
+      <Typography variant="subtitle1"
                   className={classes.displayTextHeader}
       >
       Vous n'êtes pas inscrit au BTS

@@ -12,6 +12,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import SnackbarContentWrapper from "../share/SnackbarContentWrapper";
 
 import AuthService from "../../services/Security/AuthService";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(theme => ({
     '@global': {
@@ -37,6 +38,9 @@ const useStyles = makeStyles(theme => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    buttonProgress: {
+        marginRight: '8px',
+    },
 }));
 
 export default function SignIn(props) {
@@ -44,6 +48,7 @@ export default function SignIn(props) {
 
     const classes = useStyles();
 
+    const [loading, setLoading] = React.useState( false);
     const [form, setValues] = React.useState({
         login: '',
         password: ''
@@ -79,12 +84,14 @@ export default function SignIn(props) {
 
 
     function handleSubmit() {
+        setLoading(true);
         authenticationService.loginWithRole(form.login, form.password, "ROLE_USER")
           .then(res =>{
-              console.log("login AuthService.login.then");
+              setLoading(false);
               props.history.replace('/');
           })
           .catch(error =>{
+              setLoading(false);
               console.log(error);
               openSnackbar('Le login ou le mot de passe sont incorrects');
           })
@@ -133,9 +140,11 @@ return (
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={loading}
 
             onClick={handleSubmit}
           >
+              {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
               Connexion
           </Button>
       </div>

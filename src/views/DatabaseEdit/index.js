@@ -113,15 +113,18 @@ class DatabaseEdit extends Component {
   };
 
   modifyContributor = (loginsql,  password, permissionid) => {
-    let database= this.state.database;
-    let contributor = database.DatabaseGroupUsers.find(c => c.SqlLogin === loginsql);
+    let updateContributor =
+      {
+        "DbId": this.state.database.Id,
+        "SqlLogin": loginsql,
+        "Password": password,
+        "UserLogin": loginsql, // unused
+        "GroupType": permissionid
+      };
 
-    contributor.GroupType = permissionid;
-    contributor.Password = password;
-
-    this.contributorsAPI.modifyContributor(contributor)
+    this.contributorsAPI.modifyContributor(updateContributor)
       .then(data => {
-        let database= this.state.database;
+        let database = this.state.database;
         let contributor = database.DatabaseGroupUsers.find(c => c.SqlLogin === loginsql);
         contributor.GroupType = permissionid;
 

@@ -1,10 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Redirect } from "react-router-dom";
 import AuthService from "../../services/Security/AuthService";
 
+export default function Logout(props) {
 
+    AuthService.logout();
 
-class Logout extends Component {
+    return(
+      <Redirect to='/login' />
+    );
+}
+
+/*class Logout extends Component {
 
     constructor(props) {
         super(props);
@@ -19,4 +26,4 @@ class Logout extends Component {
     }
 }
 
-export default Logout;
+export default Logout;*/

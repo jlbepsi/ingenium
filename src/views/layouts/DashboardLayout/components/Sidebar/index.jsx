@@ -50,6 +50,8 @@ class Sidebar extends Component {
       case 'INT_ADMIN':
         userClasse = 'Professeur';
         break;
+      default:
+        break;
     }
 
     let menuListUser = [
@@ -63,7 +65,6 @@ class Sidebar extends Component {
         link: '/webstorage',
         icon: <Icon path={mdiWeb} size={1}/>
       },
-      ,
     ];
 
     if (profile.bts) {

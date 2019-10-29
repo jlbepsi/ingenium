@@ -106,7 +106,7 @@ class AccountsList extends Component {
         </Grid>
 
         <DialogServerAccess
-          serverName={accountSelected.DatabaseServerName.Code}
+          server={accountSelected.DatabaseServerName}
           open={dialogserveraccess}
           onClose={this.handleClose}
         />

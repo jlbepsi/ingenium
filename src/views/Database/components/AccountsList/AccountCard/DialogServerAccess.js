@@ -10,85 +10,49 @@ import {Divider, Typography} from "@material-ui/core";
 
 function DialogServerAccess(props) {
 
-  const { onClose, serverName, ...other } = props;
+  const { onClose, server, ...other } = props;
 
   function handleClose () {
     onClose('dialogserveraccess');
   }
 
-  let serverDescription = '', serverNameUI = '';
-  switch (serverName.toLowerCase()) {
-    case "mysql":
-      serverNameUI = 'MySQL';
-      serverDescription = <div>
+  // {"Id":4,"Code":"SQLSERVER","Name":"SQL Server 2","IPLocale":"192.168.100.161","PortLocal":1433,"NomDNS":"sqlserver2.montpellier.epsi.fr",
+  // "Description":"","CanAddDatabase":1}
 
-        <Typography variant="body2">
-          L'accès à MySQL se fait depuis un navigateur web à l'URL <a href="https://mysql.montpellier.epsi.fr/" target="_blank">https://mysql.montpellier.epsi.fr/</a>
-        </Typography>
-        <br />
-        <Divider />
-        <br />
+  function getServerDescription() {
+    let serverDescription = '';
+    switch (server.Code.toLowerCase()) {
+      case "sqlserver":
+        serverDescription =
+          <Typography variant="body2">
+            L'accès à SQL Server se fait depuis <a href="https://docs.microsoft.com/fr-fr/sql/ssms/download-sql-server-management-studio-ssms" target="_blank" rel="noopener noreferrer">SQL Server Management Studio</a>.<br />
+          </Typography>
+        break;
+      case "oracle":
+        serverDescription =
+          <Typography variant="body2">
+            L'accès à Oracle se fait depuis <a href="https://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/index.html" target="_blank"rel="noopener noreferrer">SQL Developer</a>.<br />
+          </Typography>
+        break;
+      case "mysql":
+        serverDescription =
+          <Typography variant="body2">
+            L'accès à MySQL se fait depuis un navigateur web à l'URL <a href="https://mysql.montpellier.epsi.fr/" target="_blank"rel="noopener noreferrer">https://mysql.montpellier.epsi.fr/</a>
+          </Typography>
+        break;
+  }
+}
 
-        <Typography variant="body2">
-            Pour vous connecter à une base de données MySQL, vous devez utiliser les informations suivantes :
-          <ul>
-            <li>Identifiant : <i>le login de la base de données</i></li>
-            <li>Mot de passe: <i>le mot de passe associé au login de la base de données</i></li>
-            <li>Nom d'hôte: <code>mysql.montpellier.epsi.fr</code></li>
-            <li>Port: <code>5206</code></li>
-          </ul>
-        </Typography>
 
-      </div>;
-      break;
-    case "sqlserver":
-      serverNameUI = 'SQL Server';
-      serverDescription = <div>
-
-        <Typography variant="body2">
-          L'accès à SQL Server se fait depuis <a href="https://docs.microsoft.com/fr-fr/sql/ssms/download-sql-server-management-studio-ssms" target="_blank">SQL Server Management Studio</a>.<br />
-        </Typography>
-        <br />
-        <Divider />
-        <br />
-
-        <Typography variant="body2">
-          Pour vous connecter à une base de données SQL Server, vous devez utiliser les informations suivantes :
-          <ul>
-            <li>Identifiant : <i>le login de la base de données</i></li>
-            <li>Mot de passe: <i>le mot de passe associé au login de la base de données</i></li>
-            <li>Nom d'hôte: <code>sqlserver.montpellier.epsi.fr</code></li>
-            <li>Port: <code>4433</code></li>
-          </ul>
-        </Typography>
-
-      </div>;
-      break;
-    case "oracle":
-      serverNameUI = 'Oracle';
-      serverDescription = <div>
-
-        <Typography variant="body2">
-          L'accès à Oracle se fait depuis <a href="https://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/index.html" target="_blank">SQL Developer</a>.<br />
-        </Typography>
-        <br />
-        <Divider />
-        <br />
-
-        <Typography variant="body2">
-          Pour vous connecter à une base de données Oracle, vous devez utiliser les informations suivantes :
-          <ul>
-            <li>Identifiant : <i>le login de la base de données</i></li>
-            <li>Mot de passe: <i>le mot de passe associé au login de la base de données</i></li>
-            <li>Nom d'hôte: <code>oracle.montpellier.epsi.fr</code></li>
-            <li>Port: <code>4521</code></li>
-            <li>SID: <code>bdaolap</code></li>
-
-          </ul>
-        </Typography>
-
-      </div>;
-      break;
+  function getAdditionnalInfo() {
+    switch (server.Code.toLowerCase()) {
+      case "oracle":
+        return "<li>SID: <code>bdaolap</code></li>";
+      case "sqlserver":
+      case "mysql":
+      default:
+        return "";
+    }
   }
 
   return (
@@ -96,10 +60,34 @@ function DialogServerAccess(props) {
         onClose={handleClose}
         {...other}
       >
-        <DialogTitle id="form-dialog-title">Accès au serveur {serverNameUI}</DialogTitle>
+        <DialogTitle id="form-dialog-title">Accès au serveur {server.Name}</DialogTitle>
         <DialogContent>
-          {serverDescription}
+          {getServerDescription()}
 
+          <br />
+          <Divider />
+          <br />
+
+          <Typography variant="body2">
+            <p>Pour vous connecter à une base de données, vous devez utiliser les informations suivantes :</p>
+
+            <p>Depuis l'extérieur</p>
+            <ul>
+              <li>Identifiant : <i>le login de la base de données</i></li>
+              <li>Mot de passe: <i>le mot de passe associé au login de la base de données</i></li>
+              <li>Nom d'hôte: <code>{server.NomDNS}</code></li>
+              <li>Port: <code>{server.PortExterne}</code></li>
+              {getAdditionnalInfo()}
+            </ul>
+            <p>Depuis votre espace Web</p>
+            <ul>
+              <li>Identifiant : <i>le login de la base de données</i></li>
+              <li>Mot de passe: <i>le mot de passe associé au login de la base de données</i></li>
+              <li>Nom d'hôte: <code>{server.NomDNSLocal}</code></li>
+              <li>Port: <code>{server.PortLocal}</code></li>
+              {getAdditionnalInfo()}
+            </ul>
+          </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="default">
@@ -113,7 +101,7 @@ function DialogServerAccess(props) {
 DialogServerAccess.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool.isRequired,
-  serverName: PropTypes.string.isRequired,
+  server: PropTypes.object.isRequired,
 };
 
 export default DialogServerAccess;

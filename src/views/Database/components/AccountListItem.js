@@ -15,7 +15,7 @@ function AccountListItem(props) {
 
   function handleToggle() {
     if (onSelectAccount !== undefined)
-      onSelectAccount(account.DatabaseServerName.Id + '-' + account.SqlLogin)
+      onSelectAccount(account.DatabaseServerName.Id); // + '-' + account.SqlLogin)
   }
 
 

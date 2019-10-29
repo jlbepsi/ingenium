@@ -50,7 +50,7 @@ class Microsoft extends Component {
               </Typography>
               <Divider />
 
-              <Typography variant="body1"
+              <Typography variant="subtitle1"
                           className={classes.displayTextHeader}
               >
                 Vous pouvez
@@ -65,7 +65,7 @@ class Microsoft extends Component {
               </Typography>
               <Typography
                 className={classes.displayText}
-                variant="body1"
+                variant="subtitle1"
               >
                 <ul>
                   <li>Sur la droite de votre navigateur, ouvrez les paramètres "Mon compte".</li>
@@ -88,14 +88,14 @@ class Microsoft extends Component {
               </Typography>
               <Divider />
 
-              <Typography variant="body1"
+              <Typography variant="subtitle1"
                           className={classes.displayTextHeader}
               >
                 Avec le <Link target="_blank"  href='https://portal.azure.com' rel="noopener">Portail Azure</Link>, vous pouvez utliser
                 certains service Azure et <strong>télécharger les logiciels Microsoft</strong> (Visual Studio 2019, Windows Server 2019, ...).
               </Typography>
 
-              <Typography variant="body1"
+              <Typography variant="subtitle1"
                           className={classes.displayText}
               >
                 <ul>

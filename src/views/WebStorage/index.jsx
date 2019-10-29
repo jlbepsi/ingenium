@@ -72,7 +72,7 @@ class WebStorage extends Component {
             Le serveur Web Apache
           </Typography>
           <Divider />
-          <Typography variant="body1"
+          <Typography variant="subtitle1"
                       className={classes.displayTextHeader}
           >
             Votre espace web est presque prêt pour déposer vos pages HTML et PHP. Il faut faire les étapes suivantes:
@@ -87,10 +87,10 @@ class WebStorage extends Component {
           </Typography>
           <Typography
             className={classes.displayText}
-            variant="body1"
+            variant="subtitle1"
           >
             <ul>
-              <li>Serveur : <code>newftpweb.montpellier.epsi.fr</code></li>
+              <li>Serveur : <code>ftp.montpellier.epsi.fr</code></li>
               <li>Identifiant : <i>votre login</i></li>
               <li>Mot de passe: <i>Votre mot de passe</i></li>
               <li>Port : <code>4623</code></li>
@@ -98,23 +98,14 @@ class WebStorage extends Component {
           </Typography>
 
           <Typography variant="subtitle2" gutterBottom>
-            3 - Créer votre espace web
+            3 - Accéder à votre espace web
           </Typography>
           <Typography
             className={classes.displayText}
-            variant="body1"
+            variant="subtitle1"
           >
-            Pour afficher votre page personnelle, vous <b>devez créer un répertoire nommé "web"</b> à la racine de votre dossier
-          </Typography>
-
-          <Typography variant="subtitle2" gutterBottom>
-            4 - Accéder à votre espace web
-          </Typography>
-          <Typography
-            className={classes.displayText}
-            variant="body1"
-          >
-            Votre page personnelle est : <Link target="_blank"  href={url}  rel="noopener">{url}/</Link>
+            Votre page personnelle est : <Link target="_blank"  href={url}  rel="noopener">{url}/</Link> <br />
+            Remarque: Le message <samp>You don't have permission to access /~votre.identifiant on this server.</samp> indique que vous n'avez aucun fichier index.html ou index.php.
           </Typography>
 
         </div>

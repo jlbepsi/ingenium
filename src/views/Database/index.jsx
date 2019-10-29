@@ -105,7 +105,6 @@ class Database extends Component {
     if (accounts.length > 0) {
       accounts.forEach( (account) => {
         let dbFound = data.filter(db => db.ServerId === account.DatabaseServerName.Id);
-        console.log(dbFound)
         account.nbDatabases = (dbFound === null ? 0 : dbFound.length);
       });
       this.setState( { accounts : accounts });
@@ -222,7 +221,7 @@ class Database extends Component {
   addDatabaseConfirmed = (name, serverId) => {
     this.databasesAPI.addDatabase(name, serverId, this.profile.sub, this.profile.nom + " " + this.profile.prenom)
       .then(data => {
-        this.openSnackbar("success", "Base de données ajouté !");
+        this.openSnackbar("success", "Base de données ajoutée !");
 
         let databases = this.state.databases;
         databases.push(data);

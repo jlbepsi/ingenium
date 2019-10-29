@@ -45,11 +45,7 @@ function DialogAddDatabase(props) {
   };
 
   function handleAction () {
-    // Account id est de la forme: ServerId-LoginSQL
-    const indexOf = accountId.indexOf('-');
-    const serverId = accountId.substr(0, indexOf);
-
-    onActionValidate(dbName, serverId);
+    onActionValidate(dbName, accountId);
     setDbName('');
     setAccountId('');
   }
@@ -111,11 +107,10 @@ function DialogAddDatabase(props) {
         </Typography>
         <Divider />
 
-          <List>
-
+        <List>
           {accounts.map( account => (
             <AccountListItem
-              key={accountId}
+              key={account.DatabaseServerName.Id}
               classes={classes}
               account={account}
               accountId={accountId}

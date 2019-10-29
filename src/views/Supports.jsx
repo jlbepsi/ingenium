@@ -40,19 +40,19 @@ class Supports extends Component {
           </Typography>
           <Divider />
 
-          <Typography variant="body1"
+          <Typography variant="subtitle1"
                       className={classes.displayTextHeader}
           >
             En cas de problème, vous pouvez contacter le support.
           </Typography>
 
-          <Typography variant="body1" gutterBottom>
+          <Typography variant="subtitle1" gutterBottom>
             Les services Ingenium (base de données et espace Web), Suivi PPE et les imprimantes sont gérés
             par <a href="mailto:admin.reseau@montpellier-epsi.fr">l'administrateur réseau local</a>.
           </Typography>
           <Typography
             className={classes.displayText}
-            variant="body1"
+            variant="subtitle1"
           >
             <strong>Tous les autres services</strong> (portail de connexion, MyLearningBox, 7Speaking, Beecome, etc.) sont gérés
             par <a href="mailto:support@reseau-cd.fr">Compétences et Développement</a>.

@@ -1,4 +1,4 @@
-import {white, red} from "../../../../../common/colors";
+import {white} from "../../../../../common/colors";
 
 export default theme => ({
   root: {
@@ -72,7 +72,6 @@ export default theme => ({
     marginRight: 0
   },
   listItemText: {
-    fontWeight: 500,
     color: theme.palette.text.secondary,
   },
 });

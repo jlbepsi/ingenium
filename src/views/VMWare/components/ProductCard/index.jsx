@@ -38,7 +38,7 @@ class ProductCard extends Component {
             item
             lg={4}
             sm={6}
-            xl={3}
+            xl={6}
             xs={12}
           >
             <img
@@ -51,7 +51,7 @@ class ProductCard extends Component {
             item
             lg={8}
             sm={6}
-            xl={3}
+            xl={6}
             xs={12}
           >
             <Typography
@@ -75,7 +75,7 @@ class ProductCard extends Component {
           <VpnKeyIcon className={classes.displayIcon} />
           <Typography
             className={classes.displayText}
-            variant="body2"
+            variant="subtitle2"
           >
             {product.licensekey}
           </Typography>
@@ -83,7 +83,7 @@ class ProductCard extends Component {
           <CalendarTodayIcon className={classes.endDateIcon} />
           <Typography
             className={classes.displayText}
-            variant="body2"
+            variant="subtitle2"
           >
             Expire le {product.enddate}
           </Typography>
@@ -93,10 +93,10 @@ class ProductCard extends Component {
           <GetAppIcon className={classes.displayIcon} />
           <Typography
             className={classes.displayText}
-            variant="body2"
+            variant="subtitle2"
           >
             <Link target="_blank"  href={product.url} rel="noopener">
-              {product.url}
+              {product.urlUI}
             </Link>
           </Typography>
         </div>

@@ -43,7 +43,7 @@ class Intellij extends Component {
           </Typography>
           <Divider />
 
-          <Typography variant="body1"
+          <Typography variant="subtitle1"
                       className={classes.displayTextHeader}
           >
             Vous pouvez avoir tous les logiciels <Link target="_blank"  href='https://www.jetbrains.com/' rel="noopener">JetBrain</Link> (PHPStorm, WebStorm, Intellij, ...)
@@ -55,7 +55,7 @@ class Intellij extends Component {
           </Typography>
           <Typography
             className={classes.displayText}
-            variant="body1"
+            variant="subtitle1"
           >
             Allez sur la <Link target="_blank"  href='https://www.jetbrains.com/shop/eform/students' rel="noopener">page d'enregistrement</Link> (indiquez bien votre adresse mail @epsi.fr)
           </Typography>
@@ -65,7 +65,7 @@ class Intellij extends Component {
           </Typography>
           <Typography
             className={classes.displayText}
-            variant="body1"
+            variant="subtitle1"
           >
             Lorsque vous recevez le mail de JetBrain, validez-le pour pouvoir entrer votre mot de passe.
           </Typography>
@@ -75,7 +75,7 @@ class Intellij extends Component {
           </Typography>
           <Typography
             className={classes.displayText}
-            variant="body1"
+            variant="subtitle1"
           >
             Vous devriez maintement pouvour utiliser <Link target="_blank"  href='https://www.jetbrains.com/products.html' rel="noopener">tous les logiciels</Link> de JetBrain.
             <strong>Votre licence est valide 1 an.</strong>
@@ -86,7 +86,7 @@ class Intellij extends Component {
             </Typography>
             <Typography
               className={classes.displayText}
-              variant="body1"
+              variant="subtitle1"
             >
             Quelques jours avant la date d'expiration de votre licence, vous recevrez un mail de jetBrain vous demandant de la renouveller.
           </Typography>

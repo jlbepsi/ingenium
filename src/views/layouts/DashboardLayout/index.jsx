@@ -16,6 +16,7 @@ import { Sidebar, Topbar, Footer } from './components';
 
 // Component styles
 import styles from './styles';
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 class DashboardLayout extends Component {
   constructor(props) {
@@ -48,6 +49,7 @@ class DashboardLayout extends Component {
 
     return (
       <Fragment>
+        <CssBaseline />
         <Topbar
           className={classNames(classes.topbar, {
             [classes.topbarShift]: shiftTopbar

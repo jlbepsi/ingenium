@@ -8,6 +8,10 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import SnackbarContentWrapper from "../../../share/SnackbarContentWrapper";
+import DialogServerAccess from "../../../Database/components/AccountsList/AccountCard/DialogServerAccess";
+import Tooltip from "@material-ui/core/Tooltip";
+import {IconButton} from "@material-ui/core";
+import AccessIcon from '@material-ui/icons/ExitToApp';
 
 
 
@@ -28,7 +32,14 @@ const styles = theme => ({
 
 
 
+/*
 class DatabaseForm extends Component {
+
+  DatabaseForm() {
+    const [dialogserveraccess, setDialogserveraccess] = React.useState(false);
+  }
+
+
 
   render() {
     const {classes, database} = this.props;
@@ -39,87 +50,132 @@ class DatabaseForm extends Component {
       );
     }
     let date = new Date(database.DateCreation).toLocaleString('FR-fr', { year: 'numeric', month: 'long', day: 'numeric'});
+
+    */
+
+
+function DatabaseForm(props) {
+
+  const [dialogserveraccess, setDialogserveraccess] = React.useState(false);
+  const { classes, database } = props;
+
+  if (database === null) {
     return (
-        <form className={classes.form} autoComplete="off" >
-          {! database.CanBeUpdated &&
-          <SnackbarContentWrapper
-            variant="warning"
-            className={classes.margin}
-            message="Vous n'êtes pas administrateur de la base de données."
-          />
-          }
+      <Typography variant='h5'>Aucune base de données sélectionnée.</Typography>
+    );
+  }
 
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={7}>
-              <TextField
-                id="nom"
-                label="Nom de la base de données"
-                fullWidth
-                disabled
+  function handleClose(name) {
+    setDialogserveraccess(false);
+  }
 
-                value={database.NomBD}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={5}>
-              <TextField
-                id="DateCreation"
-                label="Date de création"
-                fullWidth
-                disabled
+  function serverAccess() {
+    setDialogserveraccess(true);
+  }
 
-                value={date}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={12}>
-              <TextField
-                id="Commentaire"
-                label="Commentaire"
-                fullWidth
-                disabled={! database.CanBeUpdated}
+  function getFriendlyDateCreation() {
+    return new Date(database.DateCreation).toLocaleString('FR-fr', { year: 'numeric', month: 'long', day: 'numeric'});
+  }
 
-                value={database.Commentaire}
-                onChange={(event) => this.props.handleChangeCommentaire(event.target.value)}
-              />
-            </Grid>
 
-            <Grid item xs={12} sm={12} md={5}>
-              <TextField
-                id="servername"
-                label="Type de serveur"
-                fullWidth
-                disabled
+  return (
+    <div>
+      <form className={classes.form} autoComplete="off" >
+        {! database.CanBeUpdated &&
+        <SnackbarContentWrapper
+          variant="warning"
+          className={classes.margin}
+          message="Vous n'êtes pas administrateur de la base de données."
+        />
+        }
 
-                value={database.DatabaseServerName.Name}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={7}>
-              <TextField
-                id="serveururl"
-                label="Adresse du serveur"
-                fullWidth
-                disabled
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={12} md={7}>
+            <TextField
+              id="nom"
+              label="Nom de la base de données"
+              fullWidth
+              disabled
 
-                value={database.DatabaseServerName.NomDNS}
-              />
-            </Grid>
+              value={database.NomBD}
+            />
+          </Grid>
+          <Grid item xs={12} sm={12} md={5}>
+            <TextField
+              id="DateCreation"
+              label="Date de création"
+              fullWidth
+              disabled
+
+              value={getFriendlyDateCreation}
+            />
+          </Grid>
+          <Grid item xs={12} sm={12} md={12}>
+            <TextField
+              id="Commentaire"
+              label="Commentaire"
+              fullWidth
+              disabled={! database.CanBeUpdated}
+
+              value={database.Commentaire}
+              onChange={(event) => props.handleChangeCommentaire(event.target.value)}
+            />
           </Grid>
 
-          <div className={classes.buttonsAction}>
-            <Button component={RouterLink} to="/database">Annuler</Button>
-            &nbsp;
-            {database.CanBeUpdated &&
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.props.handleModifyDatabase}
-            >
-              Valider
-            </Button>
-            }
-          </div>
-        </form>
-    )
-  }
+          <Grid item xs={12} sm={12} md={2}>
+            <Tooltip title="Accès au serveur">
+              <IconButton aria-label="Acces"
+                          onClick={(e) => serverAccess()}
+              >
+                <AccessIcon />
+              </IconButton>
+            </Tooltip>
+            Accès au serveur
+          </Grid>
+          <Grid item xs={12} sm={12} md={4}>
+            <TextField
+              id="servername"
+              label="Nom de serveur"
+              fullWidth
+              disabled
+
+              value={database.DatabaseServerName.Name}
+            />
+          </Grid>
+          <Grid item xs={12} sm={12} md={6}>
+            <TextField
+              id="serveururl"
+              label="Adresse du serveur"
+              fullWidth
+              disabled
+
+              value={database.DatabaseServerName.NomDNS}
+            />
+          </Grid>
+        </Grid>
+
+        <div className={classes.buttonsAction}>
+          <Button component={RouterLink} to="/database">Annuler</Button>
+          &nbsp;
+          {database.CanBeUpdated &&
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={props.handleModifyDatabase}
+          >
+            Valider
+          </Button>
+          }
+        </div>
+      </form>
+
+      <DialogServerAccess
+        server={database.DatabaseServerName}
+        open={dialogserveraccess}
+        onClose={handleClose}
+        />
+    </div>
+  )
 }
 
 DatabaseForm.propTypes = {
