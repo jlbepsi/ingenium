@@ -27,12 +27,12 @@ function FormEPSIContributor(props) {
   // API Users
   const utilisateursAPI = new UtilisateursAPI();
 
-  const { classes, loginsql, serverid } = props;
+  const { classes, loginsql, serverId } = props;
 
   useEffect( () => {
     // Obtention des utilisateur du serveur de cette base de données
     //this.setState({isLoadingDatabases: true});
-    accountsAPI.getServerAccounts(serverid)
+    accountsAPI.getServerAccounts(serverId)
       .then(data => {
         setServerAccounts(data);
         updateUsersList(users, data);
@@ -66,7 +66,7 @@ function FormEPSIContributor(props) {
 
     // Pour chaque utilisateur du serveur, on met l'attribut active à vrai
     serverUsersAccounts.forEach( (userAccount => {
-      let user = usersClasse.find( u => u.login === userAccount.UserLogin);
+      let user = usersClasse.find( u => u.login === userAccount.userLogin);
 
       if (user) {
         user.active = true;

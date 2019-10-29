@@ -40,7 +40,7 @@ function DialogModifyAccount(props) {
   const { classes, onClose, onActionValidate, accountSelected, ...other } = props;
 
   function handleAction () {
-    onActionValidate(accountSelected.SqlLogin, password, accountSelected.DatabaseServerName.Id);
+    onActionValidate(accountSelected.sqlLogin, password, accountSelected.server.id);
   }
   function handleClose () {
     onClose('dialogmodifyaccount');
@@ -117,17 +117,17 @@ function DialogModifyAccount(props) {
             }
           }}
 
-          value={accountSelected.SqlLogin}
+          value={accountSelected.sqlLogin}
         />
         <br /><br />
 
         <Typography variant={"subtitle2"}>Serveur</Typography>
         <List>
           <AccountListItem
-            key={accountSelected.DatabaseServerName.Id + '-' + accountSelected.SqlLogin}
+            key={accountSelected.server.id + '-' + accountSelected.sqlLogin}
             classes={classes}
             account={accountSelected}
-            accountId={accountSelected.DatabaseServerName.Id + '-' + accountSelected.SqlLogin}
+            accountId={accountSelected.server.id + '-' + accountSelected.sqlLogin}
           />
         </List>
 

@@ -50,7 +50,7 @@ class DatabaseEdit extends Component {
       .then(data => {
         this.setState({isLoadingDatabase: false});
 
-        data.DatabaseGroupUsers.sort((dgu1, dgu2) => dgu1.GroupType - dgu2.GroupType);
+        data.users.sort((dgu1, dgu2) => dgu1.groupType - dgu2.groupType);
         this.setState({database: data})
       })
       .catch(err => {
@@ -89,19 +89,19 @@ class DatabaseEdit extends Component {
 
     let newContributor =
       {
-        "DbId": this.state.database.Id,
-        "SqlLogin": loginsql,
+        "DbId": this.state.database.id,
+        "sqlLogin": loginsql,
         "Password": password,
-        "UserLogin": loginsql,
-        "UserFullName": fullname,
-        "GroupType": permissionid
+        "userLogin": loginsql,
+        "userFullName": fullname,
+        "groupType": permissionid
       };
     this.contributorsAPI.addContributor(newContributor)
       .then(data => {
         let database= this.state.database;
-        database.DatabaseGroupUsers.push(data);
+        database.users.push(data);
         // Tri par nom
-        database.DatabaseGroupUsers.sort((dgu1, dgu2) => dgu1.GroupType - dgu2.GroupType);
+        database.users.sort((dgu1, dgu2) => dgu1.groupType - dgu2.groupType);
 
         // OK
         this.openSnackbar("success", 'Contributeur ajouté !');
@@ -115,18 +115,18 @@ class DatabaseEdit extends Component {
   modifyContributor = (loginsql,  password, permissionid) => {
     let updateContributor =
       {
-        "DbId": this.state.database.Id,
-        "SqlLogin": loginsql,
+        "DbId": this.state.database.id,
+        "sqlLogin": loginsql,
         "Password": password,
-        "UserLogin": loginsql, // unused
-        "GroupType": permissionid
+        "userLogin": loginsql, // unused
+        "groupType": permissionid
       };
 
     this.contributorsAPI.modifyContributor(updateContributor)
       .then(data => {
         let database = this.state.database;
-        let contributor = database.DatabaseGroupUsers.find(c => c.SqlLogin === loginsql);
-        contributor.GroupType = permissionid;
+        let contributor = database.users.find(c => c.sqlLogin === loginsql);
+        contributor.groupType = permissionid;
 
         // OK
         this.openSnackbar("success", 'Contributeur modifié !');
@@ -140,14 +140,14 @@ class DatabaseEdit extends Component {
   deleteContributor = (loginsql) => {
     let contributorToDelete =
       {
-        "DbId": this.state.database.Id,
-        "SqlLogin": loginsql,
+        "DbId": this.state.database.id,
+        "sqlLogin": loginsql,
       };
 
     this.contributorsAPI.deleteContributor(loginsql, contributorToDelete)
       .then(data => {
         let database= this.state.database;
-        database.DatabaseGroupUsers = database.DatabaseGroupUsers.filter(c => c.SqlLogin !== loginsql);
+        database.users = database.users.filter(c => c.sqlLogin !== loginsql);
 
         this.setState({database: database});
 

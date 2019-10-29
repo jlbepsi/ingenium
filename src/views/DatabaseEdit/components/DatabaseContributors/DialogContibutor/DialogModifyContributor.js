@@ -43,7 +43,7 @@ function DialogModifyContributor(props) {
 
   function displayContributor() {
     let contributorForm;
-    if (props.userfullname === null || props.userfullname === undefined) {
+    if (props.userFullName === null || props.userFullName === undefined) {
       contributorForm =
         <FormModifyOtherContributor
           classes={props.classes}
@@ -61,7 +61,7 @@ function DialogModifyContributor(props) {
           variant="outlined"
           disabled={true}
 
-          value={props.userfullname}
+          value={props.userFullName}
         />
     }
 
@@ -125,7 +125,7 @@ DialogModifyContributor.propTypes = {
   open: PropTypes.bool.isRequired,
   permissions: PropTypes.array.isRequired,
   loginsql: PropTypes.string.isRequired,
-  userfullname: PropTypes.string,
+  userFullName: PropTypes.string,
   permissionid: PropTypes.number.isRequired,
 
   onClose: PropTypes.func,

@@ -12,17 +12,17 @@ import DialogModifyAccount from "./AccountCard/DialogModifyAccount";
 
 const dummyAccount =
   {
-    "SqlLogin":null,
-    "UserLogin":null,
-    "DatabaseServerName":
+    "sqlLogin":null,
+    "userLogin":null,
+    "server":
       {
-        "Id":0,
-        "Code":"TEST",
-        "Name":"ServerTest",
-        "IPLocale":"0.0.0.0",
-        "NomDNS":"aucun",
-        "Description":"Utilisé pour les tests",
-        "CanAddDatabase":0
+        "id":0,
+        "code":"TEST",
+        "name":"ServerTest",
+        "ipLocale":"0.0.0.0",
+        "nomDns":"aucun",
+        "description":"Utilisé pour les tests",
+        "canAddDatabase":0
       }
   };
 
@@ -47,8 +47,8 @@ class AccountsList extends Component {
     this.setState({ accountSelected: account });
     this.setState({ dialogaddaccount: true });
   };
-  addAccountConfirmed = (password, serverid) => {
-    this.props.handleAddAccount(password, serverid);
+  addAccountConfirmed = (password, serverId) => {
+    this.props.handleAddAccount(password, serverId);
     this.setState({ dialogaddaccount: false });
   };
 
@@ -56,8 +56,8 @@ class AccountsList extends Component {
     this.setState({ accountSelected: account });
     this.setState({ dialogmodifyaccount: true });
   };
-  modifyAccountConfirmed = (sqllogin, password, serverid) => {
-    this.props.handleModifyAccount(sqllogin, password, serverid);
+  modifyAccountConfirmed = (sqlLogin, password, serverId) => {
+    this.props.handleModifyAccount(sqlLogin, password, serverId);
     this.setState({ dialogmodifyaccount: false });
   };
 
@@ -69,7 +69,7 @@ class AccountsList extends Component {
     this.setState({ dialogdeleteaccount: true });
   };
   deleteAccountConfirmed = () => {
-    this.props.handleDeleteAccount(this.state.accountSelected.SqlLogin, this.state.accountSelected.DatabaseServerName.Id);
+    this.props.handleDeleteAccount(this.state.accountSelected.sqlLogin, this.state.accountSelected.server.id);
     this.setState({ accountSelected: dummyAccount });
     this.setState({ dialogdeleteaccount: false });
   };
@@ -94,7 +94,7 @@ class AccountsList extends Component {
         >
           {accounts.map(account => (
             <AccountCard
-              key={account.DatabaseServerName.Id + account.SqlLogin}
+              key={account.server.id + account.sqlLogin}
               classes={classes}
               account={account}
               handleAddAccount={this.addAccount}
@@ -106,7 +106,7 @@ class AccountsList extends Component {
         </Grid>
 
         <DialogServerAccess
-          server={accountSelected.DatabaseServerName}
+          server={accountSelected.server}
           open={dialogserveraccess}
           onClose={this.handleClose}
         />
@@ -117,7 +117,7 @@ class AccountsList extends Component {
           onClose={this.handleCloseDeleteAccount}
           onActionValidate={this.deleteAccountConfirmed}
         >
-          Supprimer le compte <strong>'{accountSelected.SqlLogin}'</strong> pour le serveur <strong>{accountSelected.DatabaseServerName.NomDNS}</strong> ?
+          Supprimer le compte <strong>'{accountSelected.sqlLogin}'</strong> pour le serveur <strong>{accountSelected.server.nomDns}</strong> ?
         </DialogDelete>
 
         <DialogAddAccount

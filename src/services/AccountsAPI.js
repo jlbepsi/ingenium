@@ -3,16 +3,16 @@ import BaseAPI from "./BaseAPI";
 export default class AccountsAPI extends BaseAPI {
 
   constructor() {
-    //super('https://database.ws.montpellier.epsi.fr/api/contributors');
-    super('http://localhost:8070/api/contributors');
+    //super('https://database.ws.montpellier.epsi.fr/api/accounts');
+    super('http://localhost:5000/api/accounts');
   }
 
 
   getAccounts(login) {
-    return super.apiFetchWithData('/userlogin/' + login, 'GET', null);
+    return super.apiFetchWithData('userLogin/' + login, 'GET', null);
   }
-  getServerAccounts(serverid) {
-    return super.apiFetchWithData('/serverid/' + serverid, 'GET', null);
+  getServerAccounts(serverId) {
+    return super.apiFetchWithData('serverId/' + serverId, 'GET', null);
   }
 
   getAccount(id) {
@@ -22,9 +22,9 @@ export default class AccountsAPI extends BaseAPI {
   addAccount(account) {
     const newAccount =
       {
-        "ServerId": account.serverid,
-        "UserLogin": account.user,
-        "Password": account.password,
+        "serverId": account.serverId,
+        "userLogin": account.user,
+        "password": account.password,
       };
 
     return super.apiPost(newAccount);
@@ -33,21 +33,21 @@ export default class AccountsAPI extends BaseAPI {
   updateAccount(account) {
     const accountUpdated =
       {
-        "ServerId": account.serverid,
-        "UserLogin": account.user,
-        "Password": account.password,
+        "serverId": account.serverId,
+        "userLogin": account.user,
+        "password": account.password,
       };
 
-    return super.apiPut(accountUpdated.ServerId, accountUpdated);
+    return super.apiPut(accountUpdated.serverId, accountUpdated);
   }
 
   deleteAccount(account) {
     const accountDeleted =
       {
-        "ServerId": account.serverid,
-        "UserLogin": account.user,
+        "serverId": account.serverId,
+        "userLogin": account.user,
       };
 
-    return super.apiDeleteWithURL(accountDeleted.ServerId, accountDeleted);
+    return super.apiDeleteWithURL(accountDeleted.serverId, accountDeleted);
   }
 }

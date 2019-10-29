@@ -31,12 +31,12 @@ class DatabaseContributors extends Component {
     dialogmodifycontributor: false,
     dialogdeletecontributor: false,
     sqlLogin: '',
-    UserFullName: '',
-    grouptype: 0,
+    userFullName: '',
+    groupType: 0,
   };
 
   handleChangePermission = (value) => {
-    this.setState({ grouptype: value })
+    this.setState({ groupType: value })
   };
 
 
@@ -57,21 +57,21 @@ class DatabaseContributors extends Component {
   };
 
   modifyContributor = (contributor) => {
-    this.setState({ sqlLogin: contributor.SqlLogin });
-    this.setState({ UserFullName: contributor.UserFullName });
-    this.setState({ grouptype: contributor.GroupType });
+    this.setState({ sqlLogin: contributor.sqlLogin });
+    this.setState({ userFullName: contributor.userFullName });
+    this.setState({ groupType: contributor.groupType });
 
     this.setState({ dialogmodifycontributor: true });
   };
-  modifyContributorConfirmed = (loginsql, password, grouptype) => {
+  modifyContributorConfirmed = (loginsql, password, groupType) => {
     this.setState({ dialogmodifycontributor: false });
 
-    this.props.handleModifyContributor(loginsql, password, grouptype);
+    this.props.handleModifyContributor(loginsql, password, groupType);
   };
 
   deleteContributor = (contributor) => {
-    this.setState({ sqlLogin: contributor.SqlLogin });
-    this.setState({ UserFullName: contributor.UserFullName });
+    this.setState({ sqlLogin: contributor.sqlLogin });
+    this.setState({ userFullName: contributor.userFullName });
     this.setState({ dialogdeletecontributor: true });
   };
   deleteContributorConfirmed = () => {
@@ -83,13 +83,13 @@ class DatabaseContributors extends Component {
   renderContributors(database, classes) {
     let rows = [], cptAdmins = 0;
     // On compte d'abord le nb d'administrateur
-    database.DatabaseGroupUsers.forEach((contributor) => {
-      if (contributor.GroupType === 1)
+    database.users.forEach((contributor) => {
+      if (contributor.groupType === 1)
         cptAdmins++;
     });
 
     // Puis on affiche les éléments : si il n'ya qu'un seul administrateur il ne peut pas être supprimé ni modifié
-    database.DatabaseGroupUsers.forEach((contributor) => {
+    database.users.forEach((contributor) => {
       rows.push(this.renderRow(contributor, cptAdmins, classes))
     });
 
@@ -97,17 +97,17 @@ class DatabaseContributors extends Component {
   };
 
   renderRow(contributor, cptAdmins, classes) {
-    const persmisson = getPermission(contributor.GroupType);
-    const fullName = (contributor.UserFullName === null ? "Non" : contributor.UserFullName);
+    const persmisson = getPermission(contributor.groupType);
+    const fullName = (contributor.userFullName === null ? "Non" : contributor.userFullName);
 
-    let contributorCanBeUpdated = contributor.CanBeUpdated, contributorCanBeDeleted = contributor.CanBeDeleted;
+    let contributorcanBeUpdated = contributor.canBeUpdated, contributorcanBeDeleted = contributor.canBeDeleted;
     // si il n'ya qu'un seul administrateur il ne peut pas être ni supprimé ni modifié
-    if (contributor.GroupType === 1 && cptAdmins <= 1) {
-      contributorCanBeUpdated = contributorCanBeDeleted = false;
+    if (contributor.groupType === 1 && cptAdmins <= 1) {
+      contributorcanBeUpdated = contributorcanBeDeleted = false;
     }
 
     let actions = [];
-    if (contributorCanBeUpdated) {
+    if (contributorcanBeUpdated) {
       actions.push(
         <Tooltip title="Modifier le contributeur">
           <IconButton
@@ -120,7 +120,7 @@ class DatabaseContributors extends Component {
         </Tooltip>
       );
     }
-    if (contributorCanBeDeleted) {
+    if (contributorcanBeDeleted) {
       actions.push(
         <Tooltip title="Supprimer le contributeur">
           <IconButton
@@ -138,16 +138,16 @@ class DatabaseContributors extends Component {
       actions.push(<Typography>Vous n'êtes pas administrateur</Typography>)
     }*/
 
-    return <TableRow key={contributor.SqlLogin} hover>
+    return <TableRow key={contributor.sqlLogin} hover>
       <TableCell>{fullName}</TableCell>
-      <TableCell><b>{contributor.SqlLogin}</b></TableCell>
+      <TableCell><b>{contributor.sqlLogin}</b></TableCell>
       <TableCell>
 
         <Chip
           className={classes.chip}
           avatar={<Avatar>{persmisson===null ? '?' : persmisson.initial}</Avatar>}
           label={persmisson===null || persmisson.title===null ? 'Aucune' : persmisson.title}
-          color={ contributor.GroupType===1 ? "primary" : "default" }
+          color={ contributor.groupType===1 ? "primary" : "default" }
           variant="outlined"
         />
 
@@ -170,11 +170,11 @@ class DatabaseContributors extends Component {
     }
 
     const { dialogaddcontributor, dialogmodifycontributor, dialogdeletecontributor,
-      sqlLogin, UserFullName, grouptype } = this.state;
+      sqlLogin, userFullName, groupType } = this.state;
 
     return (
       <div>
-        {database.CanAddGroupUser &&
+        {database.canAddGroupUser &&
         <Button
           className={classes.btnAjouter}
           variant="contained"
@@ -206,7 +206,7 @@ class DatabaseContributors extends Component {
             classes={classes}
             permissions={permissions}
             open={dialogaddcontributor}
-            serverid={database.ServerId}
+            serverId={database.serverId}
             onClose={this.handleClose}
             onActionValidate={this.addContributorConfirmed}
           />
@@ -215,8 +215,8 @@ class DatabaseContributors extends Component {
             classes={classes}
             permissions={permissions}
             loginsql={sqlLogin}
-            userfullname={UserFullName}
-            permissionid={grouptype}
+            userFullName={userFullName}
+            permissionid={groupType}
             open={dialogmodifycontributor}
             onClose={this.handleClose}
             onActionValidate={this.modifyContributorConfirmed}
@@ -230,11 +230,11 @@ class DatabaseContributors extends Component {
             onClose={this.handleCloseDialogDeleteContributor}
             onActionValidate={this.deleteContributorConfirmed}
           >
-            {UserFullName === null &&
+            {userFullName === null &&
             <div>Supprimer le contributeur <strong>'{sqlLogin}'</strong> ?</div>
             }
-            {UserFullName !== null &&
-            <div>Supprimer le contributeur <strong>'{sqlLogin}'</strong> ({UserFullName})?</div>
+            {userFullName !== null &&
+            <div>Supprimer le contributeur <strong>'{sqlLogin}'</strong> ({userFullName})?</div>
             }
           </DialogDelete>
 

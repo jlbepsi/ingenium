@@ -5,7 +5,7 @@ export default class ContributorsAPI extends BaseAPI {
 
   constructor() {
     //super('https://database.ws.montpellier.epsi.fr/api/contributors');
-    super('http://localhost:8070/api/contributors');
+    super('http://localhost:5000/api/contributors');
   }
 
   addContributor(newContributor) {
@@ -13,7 +13,7 @@ export default class ContributorsAPI extends BaseAPI {
   }
 
   modifyContributor(contributor) {
-    return super.apiPut(contributor.SqlLogin, contributor);
+    return super.apiPut(contributor.sqlLogin, contributor);
   }
 
   deleteContributor(loginsql, contributor) {

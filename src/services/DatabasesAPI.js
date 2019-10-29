@@ -3,13 +3,13 @@ import BaseAPI from "./BaseAPI";
 export default class DatabasesAPI extends BaseAPI {
 
   constructor() {
-    //super('https://database.ws.montpellier.epsi.fr/api/contributors');
-    super('http://localhost:8070/api/contributors');
+    //super('https://database.ws.montpellier.epsi.fr/api/databases');
+    super('http://localhost:5000/api/databases');
   }
 
 
   getDatabases(login) {
-    return super.apiFetchWithData('/login/' + login, 'GET', null);
+    return super.apiFetchWithData('login/' + login, 'GET', null);
   }
 
   getDatabase(id) {
@@ -19,10 +19,10 @@ export default class DatabasesAPI extends BaseAPI {
   addDatabase(name, serverId, userLogin, userFullName) {
     const newDatabase =
       {
-        "ServerId": serverId,
-        "NomBD": name,
-        "UserLogin": userLogin,
-        "UserFullName": userFullName
+        "serverId": serverId,
+        "nomBd": name,
+        "userLogin": userLogin,
+        "userFullName": userFullName
       };
 
     return super.apiPost(newDatabase);
@@ -31,11 +31,11 @@ export default class DatabasesAPI extends BaseAPI {
   updateDatabase(database, userLogin) {
     const databaseUpdated =
       {
-        "Id": database.Id,
-        "ServerId": database.ServerId,
-        "NomBD": database.NomBD,
-        "UserLogin": userLogin,
-        "Commentaire": database.Commentaire
+        "id": database.id,
+        "serverId": database.serverId,
+        "nomBd": database.nomBd,
+        "userLogin": userLogin,
+        "commentaire": database.Commentaire
       };
 
     return super.apiPut(databaseUpdated.Id, databaseUpdated);

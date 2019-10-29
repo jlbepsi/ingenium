@@ -41,7 +41,7 @@ class AccountCard extends Component {
 
 
     let AccountIcon;
-    switch (account.DatabaseServerName.Code.toLowerCase()) {
+    switch (account.server.code.toLowerCase()) {
       case "mysql":
         AccountIcon = MySQLImage;
         break;
@@ -54,13 +54,13 @@ class AccountCard extends Component {
     }
 
     let cardContent, cardAction = [];
-    if (account.SqlLogin) {
+    if (account.sqlLogin) {
       cardContent = <CardContent>
         <Typography gutterBottom variant="h5" component="h2">
-          Login: {account.SqlLogin}
+          Login: {account.sqlLogin}
         </Typography>
         <Typography variant="subtitle2" color="textSecondary" component="p">
-          Serveur : {account.DatabaseServerName.NomDNS}
+          Serveur : {account.server.nomDns}
         </Typography>
         <Typography variant="subtitle2" color="textSecondary" component="p">
           {account.nbDatabases===0 ?
@@ -111,7 +111,7 @@ class AccountCard extends Component {
           Aucun compte
         </Typography>
         <Typography variant="subtitle2" color="textSecondary" component="p">
-          Serveur : {account.DatabaseServerName.NomDNS}
+          Serveur : {account.server.nomDns}
         </Typography>
       </CardContent>;
 

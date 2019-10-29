@@ -36,7 +36,7 @@ function DialogAddAccount(props) {
   const { classes, onClose, onActionValidate, accountSelected, ...other } = props;
 
   function handleAction () {
-    onActionValidate(password, accountSelected.DatabaseServerName.Id);
+    onActionValidate(password, accountSelected.server.id);
   }
   function handleClose () {
     onClose('dialogaddaccount');
@@ -101,10 +101,10 @@ function DialogAddAccount(props) {
         <Typography variant={"subtitle2"}>Serveur</Typography>
         <List>
           <AccountListItem
-            key={accountSelected.DatabaseServerName.Id}
+            key={accountSelected.server.id}
             classes={classes}
             account={accountSelected}
-            accountId={accountSelected.DatabaseServerName.Id}
+            accountId={accountSelected.server.id}
           />
         </List>
 

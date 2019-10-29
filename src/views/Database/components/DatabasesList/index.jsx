@@ -51,16 +51,16 @@ class DatabasesList extends Component {
   };
 
   modifyDatabase = (database) => {
-    this.props.handleModifyDatabase(database.Id);
+    this.props.handleModifyDatabase(database.id);
   };
 
   handleCloseDeleteDatabase = () => {
     this.setState({ dialogdeletedatabase: false });
   };
   deleteDatabase = (database) => {
-    this.setState({ databaseId: database.Id });
-    this.setState({ databaseName: database.NomBD });
-    this.setState({ serverName: database.DatabaseServerName.NomDNS });
+    this.setState({ databaseId: database.id });
+    this.setState({ databaseName: database.nomBd });
+    this.setState({ serverName: database.server.nomDns });
     this.setState({ dialogdeletedatabase: true });
   };
   deleteDatabaseConfirmed = () => {
@@ -71,19 +71,19 @@ class DatabasesList extends Component {
 
 
   renderRow(database, classes) {
-    const databaseIconUrl = '/images/databases/' + database.DatabaseServerName.Code.trim().toLowerCase() + '.png';
+    const databaseIconUrl = '/images/databases/' + database.server.code.trim().toLowerCase() + '.png';
 
     let contributors = [];
-    database.DatabaseGroupUsers.forEach( contributor => {
+    database.users.forEach( contributor => {
 
-      const persmisson = getPermission(contributor.GroupType);
+      const persmisson = getPermission(contributor.groupType);
       contributors.push(
         <Chip
-          key={contributor.SqlLogin}
+          key={contributor.sqlLogin}
           className={classes.chip}
           avatar={<Avatar>{persmisson===null ? '?' : persmisson.initial}</Avatar>}
-          label={contributor.UserFullName===null ? contributor.SqlLogin : contributor.UserFullName}
-          color={ contributor.GroupType===1 ? "primary" : "default" }
+          label={contributor.userFullName===null ? contributor.sqlLogin : contributor.userFullName}
+          color={ contributor.groupType===1 ? "primary" : "default" }
           variant="outlined"
         />
       );
@@ -92,7 +92,7 @@ class DatabasesList extends Component {
 
     let actions = [];
 
-    if (database.CanBeUpdated) {
+    if (database.canBeUpdated) {
       actions.push(
         <Tooltip title="Modifier la base de données">
           <IconButton
@@ -105,7 +105,7 @@ class DatabasesList extends Component {
         </Tooltip>
       );
     }
-    if (database.CanBeDeleted) {
+    if (database.canBeDeleted) {
       actions.push(
         <Tooltip title="Supprimer la base de données">
           <IconButton
@@ -120,7 +120,7 @@ class DatabasesList extends Component {
       );
     }
 
-    return <TableRow key={database.Id} hover>
+    return <TableRow key={database.id} hover>
       <TableCell>
         <img
           width={40}
@@ -129,9 +129,9 @@ class DatabasesList extends Component {
         />
       </TableCell>
       <TableCell>
-        {database.DatabaseServerName.NomDNS}
+        {database.server.nomDns}
       </TableCell>
-      <TableCell><b>{database.NomBD}</b></TableCell>
+      <TableCell><b>{database.nomBd}</b></TableCell>
       <TableCell>{database.Commentaire}</TableCell>
       <TableCell>{contributors}</TableCell>
       <TableCell>

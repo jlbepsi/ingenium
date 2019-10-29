@@ -110,7 +110,7 @@ function DialogAddDatabase(props) {
         <List>
           {accounts.map( account => (
             <AccountListItem
-              key={account.DatabaseServerName.Id}
+              key={account.server.id}
               classes={classes}
               account={account}
               accountId={accountId}

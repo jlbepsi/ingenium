@@ -21,7 +21,7 @@ function DialogServerAccess(props) {
 
   function getServerDescription() {
     let serverDescription = '';
-    switch (server.Code.toLowerCase()) {
+    switch (server.code.toLowerCase()) {
       case "sqlserver":
         serverDescription =
           <Typography variant="body2">
@@ -45,7 +45,7 @@ function DialogServerAccess(props) {
 
 
   function getAdditionnalInfo() {
-    switch (server.Code.toLowerCase()) {
+    switch (server.code.toLowerCase()) {
       case "oracle":
         return "<li>SID: <code>bdaolap</code></li>";
       case "sqlserver":
@@ -60,7 +60,7 @@ function DialogServerAccess(props) {
         onClose={handleClose}
         {...other}
       >
-        <DialogTitle id="form-dialog-title">Accès au serveur {server.Name}</DialogTitle>
+        <DialogTitle id="form-dialog-title">Accès au serveur {server.name}</DialogTitle>
         <DialogContent>
           {getServerDescription()}
 

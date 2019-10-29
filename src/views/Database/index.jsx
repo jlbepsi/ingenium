@@ -92,8 +92,8 @@ class Database extends Component {
   accountAnalysis(data) {
     if (this.state.databases.length > 0) {
       data.forEach( (account) => {
-        console.log(account.DatabaseServerName.NomDNS)
-        let dbFound = this.state.databases.filter(db => db.ServerId !== account.DatabaseServerName.Id);
+        console.log(account.server.nomDns)
+        let dbFound = this.state.databases.filter(db => db.serverId !== account.server.id);
         account.nbDatabases = (dbFound === null ? 0 : dbFound.length);
       })
     }
@@ -104,7 +104,7 @@ class Database extends Component {
 
     if (accounts.length > 0) {
       accounts.forEach( (account) => {
-        let dbFound = data.filter(db => db.ServerId === account.DatabaseServerName.Id);
+        let dbFound = data.filter(db => db.serverId === account.server.id);
         account.nbDatabases = (dbFound === null ? 0 : dbFound.length);
       });
       this.setState( { accounts : accounts });
@@ -130,10 +130,10 @@ class Database extends Component {
    *
    */
 
-  addAccountConfirmed = (password, serverid) => {
+  addAccountConfirmed = (password, serverId) => {
     const newAccount =
     {
-      "serverid": serverid,
+      "serverId": serverId,
       "user": this.profile.sub,
       "password": password,
     };
@@ -148,9 +148,9 @@ class Database extends Component {
          *    - il faut donc le trouver
          *    - puis modifier les informations du compte
          */
-        let account = dataAccounts.find(account => account.DatabaseServerName.Id === newAccount.serverid);
-        account.SqlLogin = data.SqlLogin;
-        account.UserLogin = data.UserLogin;
+        let account = dataAccounts.find(account => account.server.id === newAccount.serverId);
+        account.sqlLogin = data.sqlLogin;
+        account.userLogin = data.userLogin;
         account.nbDatabases = 0;
 
         this.setState({accounts: dataAccounts});
@@ -162,12 +162,12 @@ class Database extends Component {
       });
   };
 
-  modifyAccountConfirmed = (sqllogin, password, serverid) => {
+  modifyAccountConfirmed = (sqlLogin, password, serverId) => {
     const account =
       {
         "user": this.profile.sub,
         "password": password,
-        "serverid": serverid,
+        "serverId": serverId,
       };
 
     this.accountsAPI.updateAccount(account)
@@ -182,11 +182,11 @@ class Database extends Component {
   };
 
 
-  deleteAccountConfirmed = (loginsql, serverid) => {
+  deleteAccountConfirmed = (loginsql, serverId) => {
     const account =
       {
         "user": loginsql,
-        "serverid": serverid,
+        "serverId": serverId,
       };
 
     // Suppression du compte
@@ -196,9 +196,9 @@ class Database extends Component {
 
         let dataAccounts = this.state.accounts;
         dataAccounts.forEach( (account) => {
-            if (account.DatabaseServerName.Id === serverid && account.SqlLogin === loginsql) {
-              account.SqlLogin = null;
-              account.UserLogin = null;
+            if (account.server.id === serverId && account.sqlLogin === loginsql) {
+              account.sqlLogin = null;
+              account.userLogin = null;
               account.nbDatabases = 0;
             }
           }
@@ -288,7 +288,7 @@ class Database extends Component {
   renderDatabases() {
     const { databases, accounts } = this.state;
 
-    let validAccounts = accounts.filter(a => a.DatabaseServerName.CanAddDatabase && a.SqlLogin != null);
+    let validAccounts = accounts.filter(a => a.server.canAddDatabase && a.sqlLogin != null);
 
     if (this.state.isLoadingDatabases) {
       return (

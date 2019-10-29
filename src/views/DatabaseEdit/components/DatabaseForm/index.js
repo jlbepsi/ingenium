@@ -81,7 +81,7 @@ function DatabaseForm(props) {
   return (
     <div>
       <form className={classes.form} autoComplete="off" >
-        {! database.CanBeUpdated &&
+        {! database.canBeUpdated &&
         <SnackbarContentWrapper
           variant="warning"
           className={classes.margin}
@@ -97,7 +97,7 @@ function DatabaseForm(props) {
               fullWidth
               disabled
 
-              value={database.NomBD}
+              value={database.nomBd}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={5}>
@@ -115,7 +115,7 @@ function DatabaseForm(props) {
               id="Commentaire"
               label="Commentaire"
               fullWidth
-              disabled={! database.CanBeUpdated}
+              disabled={! database.canBeUpdated}
 
               value={database.Commentaire}
               onChange={(event) => props.handleChangeCommentaire(event.target.value)}
@@ -139,7 +139,7 @@ function DatabaseForm(props) {
               fullWidth
               disabled
 
-              value={database.DatabaseServerName.Name}
+              value={database.server.name}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
@@ -149,7 +149,7 @@ function DatabaseForm(props) {
               fullWidth
               disabled
 
-              value={database.DatabaseServerName.NomDNS}
+              value={database.server.nomDns}
             />
           </Grid>
         </Grid>
@@ -157,7 +157,7 @@ function DatabaseForm(props) {
         <div className={classes.buttonsAction}>
           <Button component={RouterLink} to="/database">Annuler</Button>
           &nbsp;
-          {database.CanBeUpdated &&
+          {database.canBeUpdated &&
           <Button
             variant="contained"
             color="primary"
@@ -170,7 +170,7 @@ function DatabaseForm(props) {
       </form>
 
       <DialogServerAccess
-        server={database.DatabaseServerName}
+        server={database.server}
         open={dialogserveraccess}
         onClose={handleClose}
         />

@@ -15,7 +15,7 @@ function AccountListItem(props) {
 
   function handleToggle() {
     if (onSelectAccount !== undefined)
-      onSelectAccount(account.DatabaseServerName.Id); // + '-' + account.SqlLogin)
+      onSelectAccount(account.server.id); // + '-' + account.sqlLogin)
   }
 
 
@@ -24,9 +24,9 @@ function AccountListItem(props) {
     <ListItem
       activeClassName={classes.activeListItem}
       className={classes.listItem}
-      key={account.DatabaseServerName.Id}
+      key={account.server.id}
       button
-      selected={accountId===account.DatabaseServerName.Id}
+      selected={accountId===account.server.id}
       onClick={handleToggle}
     >
       <ListItemAvatar
@@ -34,13 +34,13 @@ function AccountListItem(props) {
       >
         <img
           alt="Database"
-          src={'/images/databases/' + account.DatabaseServerName.Code.toLowerCase() + '.png'}
+          src={'/images/databases/' + account.server.code.toLowerCase() + '.png'}
         />
       </ListItemAvatar>
       <ListItemText
         classes={{ primary: classes.listItemText }}
-        primary={account.DatabaseServerName.NomDNS}
-        secondary={account.DatabaseServerName.Description}
+        primary={account.server.nomDns}
+        secondary={account.server.description}
       />
     </ListItem>
   );
