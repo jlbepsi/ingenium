@@ -24,13 +24,6 @@ function FormOtherContributor(props) {
     props.onChangePasswordConfirm(event.target.value)
   }
 
-/*  console.log('FormOtherContributor - errorValues=' + test)
-  console.log('FormOtherContributor - errorLogin empty=' + (test & NAME_EMPTY === NAME_EMPTY))
-  console.log('FormOtherContributor - errorLogin length=' + (test & NAME_LENGTH_INF === NAME_LENGTH_INF))
-  console.log('FormOtherContributor - errorPassword=' + errorPassword)
-  console.log('FormOtherContributor - errorPasswordConfirm=' + errorPasswordConfirm)
-*/
-
   return(
 
     <form >

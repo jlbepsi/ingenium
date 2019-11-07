@@ -32,7 +32,6 @@ function DialogModifyAccount(props) {
   );
 
   useEffect( () => {
-      console.log('DialogModifyAccount - props.useEffect')
       verifyBtnAddDisabled()
     }, [password, passwordConfirm]
   );

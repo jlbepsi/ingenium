@@ -10,7 +10,6 @@ import {Typography} from '@material-ui/core';
 
 import {
   LocationOn as LocationOnIcon,
-  SettingsEthernet as SettingsEthernetIcon,
   ExitToApp as AccessTypeIcon
 }
   from '@material-ui/icons';

@@ -41,6 +41,7 @@ function DialogServerAccess(props) {
           </Typography>
         break;
   }
+  return serverDescription;
 }
 
 
@@ -71,20 +72,20 @@ function DialogServerAccess(props) {
           <Typography variant="body2">
             <p>Pour vous connecter à une base de données, vous devez utiliser les informations suivantes :</p>
 
-            <p>Depuis l'extérieur</p>
+            <p><b>Depuis l'extérieur</b></p>
             <ul>
               <li>Identifiant : <i>le login de la base de données</i></li>
               <li>Mot de passe: <i>le mot de passe associé au login de la base de données</i></li>
-              <li>Nom d'hôte: <code>{server.NomDNS}</code></li>
-              <li>Port: <code>{server.PortExterne}</code></li>
+              <li>Nom d'hôte: <code>{server.nomDns}</code></li>
+              <li>Port: <code>{server.portExterne}</code></li>
               {getAdditionnalInfo()}
             </ul>
             <p>Depuis votre espace Web</p>
             <ul>
               <li>Identifiant : <i>le login de la base de données</i></li>
               <li>Mot de passe: <i>le mot de passe associé au login de la base de données</i></li>
-              <li>Nom d'hôte: <code>{server.NomDNSLocal}</code></li>
-              <li>Port: <code>{server.PortLocal}</code></li>
+              <li>Nom d'hôte: <code>{server.nomDnslocal}</code></li>
+              <li>Port: <code>{server.portLocal}</code></li>
               {getAdditionnalInfo()}
             </ul>
           </Typography>

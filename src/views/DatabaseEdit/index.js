@@ -85,7 +85,6 @@ class DatabaseEdit extends Component {
    */
 
   addContributor = (loginsql, fullname, password, permissionid) => {
-    console.log("DatabaseEdit-addContributor=" + loginsql + ","+fullname)
 
     let newContributor =
       {

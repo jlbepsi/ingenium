@@ -92,7 +92,6 @@ class Database extends Component {
   accountAnalysis(data) {
     if (this.state.databases.length > 0) {
       data.forEach( (account) => {
-        console.log(account.server.nomDns)
         let dbFound = this.state.databases.filter(db => db.serverId !== account.server.id);
         account.nbDatabases = (dbFound === null ? 0 : dbFound.length);
       })

@@ -109,8 +109,8 @@ class Index extends Component {
             variant="subtitle1"
           >
             <ul>
-              <li>Si vous êtes en filaire : choisissez l'option Impression en filaire <SettingsEthernetIcon /> </li>
               <li>Si vous êtes en Wifi : choisissez l'option Impression via le Wifi <WifiIcon /> <strong>(option recommandée)</strong></li>
+              <li>Si vous êtes en filaire : choisissez l'option Impression en filaire <SettingsEthernetIcon /> </li>
               <li>Si vous êtes fan du Bureau Virtuel : choisissez l'option Impression avec le Bureau Virtuel <WebIcon /></li>
             </ul>
           </Typography>

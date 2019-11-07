@@ -56,7 +56,8 @@ class GitHub extends Component {
             className={classes.displayText}
             variant="subtitle1"
           >
-            Allez sur la <Link target="_blank"  href='https://education.github.com/discount_requests/new' rel="noopener">page d'enregistrement</Link> (indiquez bien votre adresse mail @epsi.fr)
+            Allez sur la <Link target="_blank"  href='https://education.github.com/benefits' rel="noopener">page d'enregistrement</Link> (indiquez bien votre adresse mail @epsi.fr).
+            Sélectionnez <b>"GitHub Student Developer Pack"</b>
           </Typography>
 
           <Typography variant="subtitle2" gutterBottom>

@@ -27,7 +27,6 @@ export default class AuthService {
         role
       })
     }).then(res => {
-      console.log("AuthService.login");
       AuthService.setToken(res.token); // Setting the token in sessionStorage
       return Promise.resolve(res);
     })
