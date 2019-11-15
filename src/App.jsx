@@ -11,7 +11,7 @@ import Routes from './Routes'
 
 // Styles
 import 'react-perfect-scrollbar/dist/css/styles.css';
-import './assets/scss/index.scss';
+//import './assets/scss/index.scss';
 
 export default class App extends Component {
   render() {

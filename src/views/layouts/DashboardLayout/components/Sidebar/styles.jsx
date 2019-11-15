@@ -1,8 +1,11 @@
 import {white} from "../../../../../common/colors";
 
+
+import palette from '../../../../../theme/palette';
+
 export default theme => ({
   root: {
-    backgroundColor: theme.palette.common.lightgrey,
+    backgroundColor: palette.common.lightgrey,
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
@@ -38,16 +41,16 @@ export default theme => ({
   },
   listSubheader: {
     color: white,
-    backgroundColor: theme.palette.subheader,
+    backgroundColor: palette.subheader,
   },
   listItem: {
     cursor: 'pointer',
     '&:hover': {
-      backgroundColor: theme.palette.common.limegrey,
-      //borderLeft: `4px solid ${theme.palette.primary.main}`,
+      backgroundColor: palette.common.limegrey,
+      //borderLeft: `4px solid ${palette.primary.main}`,
       borderRadius: '4px',
       /*'& $listItemIcon': {
-        color: theme.palette.primary.main,
+        color: palette.primary.main,
         marginLeft: '-4px'
       }*/
     },
@@ -56,15 +59,15 @@ export default theme => ({
     }
   },
   activeListItem: {
-    //borderLeft: `4px solid ${theme.palette.primary.main}`,
+    //borderLeft: `4px solid ${palette.primary.main}`,
     borderRadius: '4px',
-    backgroundColor: theme.palette.common.limeblue,
-    //backgroundColor: theme.palette.primary.limelight,
+    backgroundColor: palette.common.limeblue,
+    //backgroundColor: palette.primary.limelight,
     '& $listItemText': {
-      color: theme.palette.primary.dark
+      color: palette.primary.dark
     },
     /*'& $listItemIcon': {
-      color: theme.palette.primary.main,
+      color: palette.primary.main,
       marginLeft: '-4px'
     }*/
   },
@@ -72,6 +75,6 @@ export default theme => ({
     marginRight: 0
   },
   listItemText: {
-    color: theme.palette.text.secondary,
+    color: palette.text.secondary,
   },
 });

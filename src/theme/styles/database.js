@@ -1,8 +1,10 @@
 import {lavenderblush, red} from "../../common/colors";
 import { amber } from '@material-ui/core/colors';
 
-export default theme => ({
 
+import palette from '../../theme/palette';
+
+const styles = theme => ({
   root: {
     margin: '16px',
   },
@@ -20,7 +22,7 @@ export default theme => ({
   },
   btnSupprimer : {
     '&:hover': {
-      color: theme.palette.danger.dark,
+      color: palette.danger.dark,
     },
   },
   leftIcon: {
@@ -37,7 +39,7 @@ export default theme => ({
   },
   tab: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: palette.background.paper,
     marginBottom: '30px'
   },
   formControl: {
@@ -52,9 +54,9 @@ export default theme => ({
     width: '100%',
   },
   formControlDisabled: {
-    color: theme.palette.primary.dark,
+    color: palette.primary.dark,
     fontWeight: '500',
-    backgroundColor: theme.palette.common.limeblue,
+    backgroundColor: palette.common.limeblue,
   },
   chip: {
     margin: '4px',
@@ -77,11 +79,11 @@ export default theme => ({
   listItem: {
     cursor: 'pointer',
     '&:hover': {
-      backgroundColor: theme.palette.common.limegrey,
-      borderLeft: `4px solid ${theme.palette.primary.main}`,
+      backgroundColor: palette.common.limegrey,
+      borderLeft: `4px solid ${palette.primary.main}`,
       borderRadius: '4px',
       '& $listItemIcon': {
-        color: theme.palette.primary.main,
+        color: palette.primary.main,
         marginLeft: '-4px'
       }
     },
@@ -90,15 +92,15 @@ export default theme => ({
     }
   },
   activeListItem: {
-    borderLeft: `4px solid ${theme.palette.primary.main}`,
+    borderLeft: `4px solid ${palette.primary.main}`,
     borderRadius: '4px',
-    backgroundColor: theme.palette.common.limeblue,
-    //backgroundColor: theme.palette.primary.limelight,
+    backgroundColor: palette.common.limeblue,
+    //backgroundColor: palette.primary.limelight,
     '& $listItemText': {
-      color: theme.palette.text.primary
+      color: palette.text.primary
     },
     '& $listItemIcon': {
-      color: theme.palette.primary.main,
+      color: palette.primary.main,
       marginLeft: '-4px'
     }
   },
@@ -108,16 +110,16 @@ export default theme => ({
   listItemAvatar: {
     margin: 10,
     color: '#fff',
-    backgroundColor: theme.palette.common.grey,
+    backgroundColor: palette.common.grey,
   },
   listItemAvatarPrimary: {
     margin: 10,
     color: '#fff',
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: palette.primary.main,
   },
   listItemText: {
     fontWeight: 500,
-    color: theme.palette.text.secondary,
+    color: palette.text.secondary,
   },
 
   snackMessage: {
@@ -131,3 +133,4 @@ export default theme => ({
     alignItems: 'center',
   },
 });
+export default styles;

@@ -15,9 +15,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 
-// Component styles
-import styles from '../../theme/styles/database';
-
 import AccountsList from "./components/AccountsList";
 import DatabaseList from "./components/DatabasesList";
 import DatabasesAPI from "../../services/DatabasesAPI";
@@ -25,6 +22,8 @@ import SnackbarContentWrapper from "../share/SnackbarContentWrapper";
 import AccountsAPI from "../../services/AccountsAPI";
 import AuthService from "../../services/Security/AuthService";
 
+
+import styles from "../../theme/styles/database";
 
 class Database extends Component {
 
