@@ -224,7 +224,7 @@ class Database extends Component {
         let databases = this.state.databases;
         databases.push(data);
         // Tri par nom
-        databases.sort((db1, db2) => db1.NomBD.localeCompare(db2.NomBD));
+        databases.sort((db1, db2) => db1.nomBd.localeCompare(db2.nomBd));
 
         this.setState({databases: databases})
       })
@@ -245,7 +245,7 @@ class Database extends Component {
       .then(data => {
         this.openSnackbar("success", "Base de données supprimée !");
 
-        let databases = this.state.databases.filter(db => db.Id !== databaseId);
+        let databases = this.state.databases.filter(db => db.id !== databaseId);
         this.setState({databases: databases})
       })
       .catch(err => {

@@ -131,7 +131,7 @@ class AccountCard extends Component {
     return (
       <Grid
         item
-        lg={3}
+        lg={4}
         md={6}
         xs={12}
       >

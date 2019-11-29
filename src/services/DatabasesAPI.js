@@ -37,7 +37,7 @@ export default class DatabasesAPI extends BaseAPI {
         "commentaire": database.Commentaire
       };
 
-    return super.apiPut(databaseUpdated.Id, databaseUpdated);
+    return super.apiPut(databaseUpdated.id, databaseUpdated);
   }
 
   deleteDatabase(id) {

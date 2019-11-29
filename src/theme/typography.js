@@ -53,7 +53,7 @@ export default {
   body1: {
     color: palette.text.primary,
     fontFamily: 'Roboto, sans-serif',
-    fontSize: '14px',
+    fontSize: '15px',
     letterSpacing: '-0.05px',
     lineHeight: '21px'
   },
@@ -64,13 +64,13 @@ export default {
     lineHeight: '18px',
     fontWeight: '400',
   },
-  body2_: {
+  /*body2_: {
     color: palette.text.primary,
     fontFamily: 'Roboto',
     fontSize: '14px',
     letterSpacing: '-0.04px',
     lineHeight: '16px',
-  },
+  },*/
   subtitle1: {
     color: palette.text.primary,
     fontFamily: 'Roboto, sans-serif',
@@ -78,13 +78,13 @@ export default {
     fontWeight: '400',
     lineHeight: '24px'
   },
-  subtitle1_old: {
+  /*subtitle1_old: {
     color: palette.text.primary,
     fontFamily: 'Open Sans, sans-serif',
     fontSize: '16px',
     letterSpacing: '-0.05px',
     lineHeight: '21px'
-  },
+  },*/
   subtitle2: {
     color: palette.text.primary,
     fontFamily: 'Roboto, sans-serif',

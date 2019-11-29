@@ -47,29 +47,15 @@ export default theme => ({
     cursor: 'pointer',
     '&:hover': {
       backgroundColor: palette.common.limegrey,
-      //borderLeft: `4px solid ${palette.primary.main}`,
       borderRadius: '4px',
-      /*'& $listItemIcon': {
-        color: palette.primary.main,
-        marginLeft: '-4px'
-      }*/
     },
-    '& + &': {
-      //marginTop: theme.spacing.unit
-    }
   },
   activeListItem: {
-    //borderLeft: `4px solid ${palette.primary.main}`,
     borderRadius: '4px',
     backgroundColor: palette.common.limeblue,
-    //backgroundColor: palette.primary.limelight,
     '& $listItemText': {
-      color: palette.primary.dark
+      color: palette.primary.dark,
     },
-    /*'& $listItemIcon': {
-      color: palette.primary.main,
-      marginLeft: '-4px'
-    }*/
   },
   listItemIcon: {
     marginRight: 0

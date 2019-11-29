@@ -77,7 +77,7 @@ class Intellij extends Component {
             className={classes.displayText}
             variant="subtitle1"
           >
-            Vous devriez maintement pouvour utiliser <Link target="_blank"  href='https://www.jetbrains.com/products.html' rel="noopener">tous les logiciels</Link> de JetBrain.
+            Vous devriez maintenant pouvoir utiliser <Link target="_blank"  href='https://www.jetbrains.com/products.html' rel="noopener">tous les logiciels</Link> de JetBrain.&nbsp;
             <strong>Votre licence est valide 1 an.</strong>
           </Typography>
 

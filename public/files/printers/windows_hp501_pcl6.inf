@@ -1,0 +1,198 @@
+; Copyright Hewlett-Packard 2014
+; XPS.PCL6 Printer Drivers
+; List of supported printers, manufacturers
+
+; Manufacturer section.
+; This section lists all of the manufacturers
+; that we will display in the Dialog box
+[Version]
+Signature = "$Windows NT$"
+ClassGUID = {4D36E979-E325-11CE-BFC1-08002BE10318}
+Class = Printer
+ClassVer = 4.0
+Provider = %OEM%
+DriverVer = 06/19/2019,8.00.1324.6679
+CatalogFile = hpbi652A4_x64.cat
+
+[Manufacturer]
+%OEM% = OEM,NTamd64.6.2
+
+; Model sections.
+; Each section here corresponds with an entry listed in the
+; [Manufacturer] section, above. The models will be displayed in the order
+; that they appear in the INF file.
+[OEM]
+
+[OEM.NTamd64.6.2]
+%PRINTER1% = INSTALL_SECTION,HPHP_LaserJet_Pro_M5b21b
+%PRINTER1% = INSTALL_SECTION,WSDPRINT\HPHP_LaserJet_Pro_M5b21b
+%PRINTER1% = INSTALL_SECTION,WSDPRINT\VID_03F0&pid_652A
+%PRINTER1% = INSTALL_SECTION,WSDPRINT\VID_03F0&pid_652A&REV_0100
+%PRINTER1% = INSTALL_SECTION,USBPRINT\HPHP_LaserJet_Pro_M5b21b
+%PRINTER1% = INSTALL_SECTION,HPHP_LaserJet_Pro_M54575
+%PRINTER1% = INSTALL_SECTION,WSDPRINT\HPHP_LaserJet_Pro_M54575
+%PRINTER1% = INSTALL_SECTION,USBPRINT\HPHP_LaserJet_Pro_M54575
+%PRINTER1% = INSTALL_SECTION,{99c658a2-29ac-4f51-b6f5-59a71b937ac9}
+
+; Installer Sections
+; These sections control file installation, and reference all files that
+; need to be copied. The section name will be assumed to be the driver
+; file, unless there is an explicit DriverFile section listed.
+[PrinterPackageInstallation.amd64]
+PackageAware = TRUE
+CoreDriverDependencies = {D20EA372-DD35-4950-9ED8-A6335AFE79F5}
+
+; Copy Sections
+; Lists of files that are actually copied. These sections are referenced
+; from the installer sections, above. Only create a section if it contains
+; two or more files (if we only copy a single file, identify it in the
+; installer section, using the @filename notation) or if it's a color
+; profile (since the DestinationDirs can only handle sections, and not
+; individual files).
+[OEM URLS]
+%OEM% = "http://www.hp.com"
+
+[INSTALL_SECTION]
+CopyFiles = COMMON_FILES_DRIVER_COPY,HELP_FILES
+Copyinf = hpbuio180l.inf
+
+; Call SetupSetDirectoryId with 66000 to set the target directory at runtime
+; (depending on which environment drivers are getting installed)
+[COMMON_FILES_DRIVER_COPY]
+hpbi652A4_x64-manifest.ini
+hpbi652A4_x64-PipelineConfig.xml
+hpbi652A4_x64cfg.gdl
+hpbi652A4_x64cfg.gpd
+hpb6sy6679_x64pcl6.dll
+hpb6sy6679_x64hybrasto.dll
+hpPE.exe
+hpb6sy6679_x64uires.dll
+hpbi652A4_x64symbols.gpd
+hpb6sy6679_x64map.xml
+hpb6sy6679_x64que.xml
+hpb6sy6679_x64constraints.js
+hpbi652A4_x64drv.bag
+hpb6sy6679bidi-Event.xml
+hpb6sy6679Bidi-SNMP.xml
+hpb6sy6679bidi-WSD.xml
+hpb6sy6679_bidi-LEDM.xml
+hpb6sy6679_bidi-LEDM.js
+userfors.dll
+hpb6sy6679_x64v4help.cab
+hpPELib.dll
+
+; Data Sections
+; Lists of files that are specially identified for Windows
+[DestinationDirs]
+DefaultDestDir = 66000
+
+; Source Disk Section
+[SourceDisksNames.amd64]
+0 = %DISK%,,,.
+1 = %DISK%,,,amd64
+2 = %DISK%,hpb6sy6679_x64v4help.cab,,amd64
+
+[SourceDisksFiles.amd64]
+arabic.chm = 2
+bulgrian.chm = 2
+catalan.chm = 2
+cesky.chm = 2
+chi_simp.chm = 2
+chi_trad.chm = 2
+croatian.chm = 2
+dansk.chm = 2
+deutsch.chm = 2
+english.chm = 2
+espanol.chm = 2
+estonian.chm = 2
+francais.chm = 2
+greek.chm = 2
+hebrew.chm = 2
+indonsia.chm = 2
+italiano.chm = 2
+japanese.chm = 2
+korean.chm = 2
+latvian.chm = 2
+magyar.chm = 2
+nedrlnds.chm = 2
+norsk.chm = 2
+polski.chm = 2
+portugus.chm = 2
+romanian.chm = 2
+russ.chm = 2
+serbian.chm = 2
+slovak.chm = 2
+slovnian.chm = 2
+suomi.chm = 2
+svenska.chm = 2
+thai.chm = 2
+turkce.chm = 2
+hpbi652A4_x64-manifest.ini = 1
+hpbi652A4_x64-PipelineConfig.xml = 1
+hpbi652A4_x64cfg.gdl = 1
+hpbi652A4_x64cfg.gpd = 1
+hpb6sy6679_x64pcl6.dll = 1
+hpb6sy6679_x64hybrasto.dll = 1
+hpPE.exe = 1
+hpb6sy6679_x64uires.dll = 1
+hpbi652A4_x64symbols.gpd = 1
+hpb6sy6679_x64map.xml = 1
+hpb6sy6679_x64que.xml = 1
+hpb6sy6679_x64constraints.js = 1
+hpbi652A4_x64drv.bag = 1
+hpb6sy6679bidi-Event.xml = 1
+hpb6sy6679Bidi-SNMP.xml = 1
+hpb6sy6679bidi-WSD.xml = 1
+hpb6sy6679_bidi-LEDM.xml = 1
+hpb6sy6679_bidi-LEDM.js = 1
+userfors.dll = 1
+hpb6sy6679_x64v4help.cab = 1
+hpPELib.dll = 1
+hpbuio180l.inf = 0
+
+[Strings]
+OEM = "hp"
+PRINTER1 = "HP LaserJet Pro M501 PCL-6"
+DISK = "HP LaserJet Pro M501 PCL-6 Printer Drivers disk"
+
+[HELP_FILES]
+arabic.chm
+bulgrian.chm
+catalan.chm
+cesky.chm
+chi_simp.chm
+chi_trad.chm
+croatian.chm
+dansk.chm
+deutsch.chm
+english.chm
+espanol.chm
+estonian.chm
+francais.chm
+greek.chm
+hebrew.chm
+indonsia.chm
+italiano.chm
+japanese.chm
+korean.chm
+latvian.chm
+magyar.chm
+nedrlnds.chm
+norsk.chm
+polski.chm
+portugus.chm
+romanian.chm
+russ.chm
+serbian.chm
+slovak.chm
+slovnian.chm
+suomi.chm
+svenska.chm
+thai.chm
+turkce.chm
+
+[Strings.0411]
+OEM = "hp"
+PRINTER1 = "HP LaserJet Pro M501 PCL-6"
+DISK = "HP LaserJet Pro M501 PCL-6 Printer Drivers disk"
+

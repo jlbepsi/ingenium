@@ -1,0 +1,4 @@
+# Initalisation de Git
+git init
+git config --global credential.helper store
+git remote add origin https://github.com/jlbepsi/ingenium.git

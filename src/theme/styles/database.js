@@ -61,15 +61,16 @@ const styles = theme => ({
   chip: {
     margin: '4px',
   },
-  card: {
-    maxWidth: 270,
-  },
+  /*card: {
+    maxWidth: 320,
+  },*/
   cardHeader:{
     backgroundColor: '#C4DDF2',
 
   },
   media: {
-    height: 70,
+    height: 80,
+    maxWidth: 320,
     //paddingTop: '56.25%', // 16:9
   },
   rightIcon: {
