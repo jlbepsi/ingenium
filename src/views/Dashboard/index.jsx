@@ -18,7 +18,8 @@ import AuthService from "../../services/Security/AuthService";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from "@material-ui/lab/AlertTitle";
 
 // Component styles
 const styles = theme => ({
@@ -118,17 +119,62 @@ class Dashboard extends Component {
           <br />
           <Divider />
           <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
-              Mes sites
+            <Typography variant="h3" component="h3">
+              Nouvel Ingenium : Nouvelle base de données
+            </Typography>
+            <Alert severity="error">Vous devez utiliser le nouvel Ingenium !</Alert>
+            <Typography variant="h6" component="h6">
+              L'ancien Ingenium est toujours accessible à l'adresse <a href="https://oldingenium.montpellier.epsi.fr" target="_blank" rel="noopener noreferrer">https://oldingenium.montpellier.epsi.fr</a>.<br />
+              Vous pouvez toujours accéder à vos anciennes bases de données via ce site.
+              Il faudra exporter vos bases de données vers le nouveau site. <br />
             </Typography>
             <Typography component="p">
-              Site <a href="https://aka.ms/devtoolsforteaching" target="_blank" rel="noopener noreferrer">Azure Dev Tools for Teaching</a> pour télécharger les versions de Windows, SQL Server, ...
+              Pour MySQL, vous devez faire les étapes suivantes :
+              <ul>
+                <li>Connectez-vous à l'ancienne adresse de <a href="https://mysql.montpellier.epsi.fr" target="_blank" rel="noopener noreferrer">PHPMyAdmin</a></li>
+                <li>Exportez votre base de données (Onglet Export) dans un fichier</li>
+                <li>Dans ce nouvel Ingenium, créez la nouvelle base de données</li>
+                <li>Connectez-vous à l'adresse du <a href="https://mysql2.montpellier.epsi.fr" target="_blank" rel="noopener noreferrer">nouveau PHPMyAdmin</a></li>
+                <li>Sélectionnez votre base de données nouvellement créée</li>
+                <li>Importer votre fichier (Onglet Import)</li>
+              </ul>
+              Pour SQL Server, vous devez faire les étapes suivantes :
+              <ul>
+                <li>Ouvrez SQLServer management Studio</li>
+                <li>Connectez-vous au serveur sqlserver.montpellier.epsi.fr,4433</li>
+                <li>Exportez votre base de données dans un fichier:
+                  <ul>
+                    <li>clic-droit sur votre BD puis Tâches | Générer des scripts</li>
+                    <li>sélectionner les tables et vues, procédures sotckeés (si il y en a) puis Suivant</li>
+                    <li>Cliquer sur le bouton "Avancé" puis pour l'option "Type de données à inclure dans le script", choisir "Schéma et données"</li>
+                    <li>Choisir l'emplacement du fichier puis Suivant er Terminer</li>
+                  </ul>
+                </li>
+                <li>Dans ce nouvel Ingenium, créez la nouvelle base de données</li>
+                <li>Dans SQLServer management Studio, connectez-vous au nouveau serveur sqlserver2.montpellier.epsi.fr,4453</li>
+                <li>Sélectionnez votre base de données nouvellement créée</li>
+                <li>Dans SQLServer management Studio, ouvrez votre fichier de BD et exécutez-le</li>
+              </ul>
             </Typography>
           </Paper>
 
           <br />
           <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
+            <Typography variant="h3" component="h3">
+              Mes sites
+            </Typography>
+            <Typography component="p">
+              Site <a href="https://aka.ms/devtoolsforteaching" target="_blank" rel="noopener noreferrer">Azure Dev Tools for Teaching (ADTT)</a> pour télécharger les versions de Windows, SQL Server, ...
+            </Typography>
+            <Alert severity="success">
+              <AlertTitle>Base de données, Site Web, ...</AlertTitle>
+              Azure Dev Tools for Teaching vous permet de créer des bases de données, des sites web et bien d'autres fonctionnalités !
+            </Alert>
+          </Paper>
+
+          <br />
+          <Paper className={classes.root}>
+            <Typography variant="h3" component="h3">
               Mes contacts
             </Typography>
             <Typography component="p">

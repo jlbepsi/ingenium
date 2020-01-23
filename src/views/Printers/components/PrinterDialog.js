@@ -133,9 +133,9 @@ function PrinterDialog(props) {
 
     let text = '';
     if (plateform.indexOf('Win32') >= 0 || plateform.indexOf('Windows') >= 0) {
-      text =  <PrinterWindows
-                printer = {printer}
-              />;
+    text =  <PrinterWindows
+      printer = {printer}
+    />;
     } else  if (plateform.indexOf('Mac') >= 0) {
       text =  <PrinterMac
                 printer = {printer}
@@ -146,7 +146,6 @@ function PrinterDialog(props) {
                 printer = {printer}
               />;
     }
-
     return text;
   }
 

@@ -131,7 +131,7 @@ function DialogAddDatabase(props) {
             <Typography>
               Cette liste n'affiche que les comptes pour lesquels:
             </Typography>
-            <br />>
+            <br />
             <ul>
               <li>vous avez créé un identifiant</li>
               <li>vous pouvez créer une bases de données (Oracle ne le permet pas).</li>

@@ -17,9 +17,10 @@ function PrinterLinux(props) {
       <ul>
         <li>1 - Ouvrir <code>Paramètres</code> puis <code>Périphériques</code>. En bas de la fenêtre cliquer sur<code>Paramètres d'imprimantes supplémentaires</code></li>
         <li>2 - Entrer l'addresse <code>http://imprimantes.montpellier.epsi.fr:631/printers/{printer.title}</code></li>
-        <li>3 - Cliquer sur Ajouter</li>
-        <li><img src={"/images/printers/hplinux_install.2.png"}/> </li>
-        <li><img src={image3}/> </li>
+        <li>3 - Cliquer sur Ajouter, exemple:</li>
+        <li>4 - <img src={"/images/printers/hplinux_install.2.png"}/> </li>
+        <li>5 - <img src={image3}/> </li>
+        <li>6 - Terminez l'opération</li>
       </ul>
     </div>
   );

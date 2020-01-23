@@ -9,7 +9,19 @@ export default [
     description: 'Recto/Verso, Couloir salle 6',
     typeacces: 'Filaire, Wifi, Bureau Virtuel',
     driverlinux: 'linux_hp501.ppd',
-    driverwindows: 'windows_hp501_pcl6.inf'
+    driverwindows: 'hp_m501_driver.exe'
+  },
+  {
+    id: 2,
+    title: 'IMP-EPMTP-S6-2',
+    emplacement: 'Apothicaire',
+    adresseip: '192.168.112.212',
+    model: 'm501dn',
+    fullModel: 'HP LaserJet Pro M501dn',
+    description: 'Recto/Verso, Couloir salle 6',
+    typeacces: 'Filaire, Wifi, Bureau Virtuel',
+    driverlinux: 'linux_hp501.ppd',
+    driverwindows: 'hp_m501_driver.exe'
   },
   {
     id: 3,
@@ -33,6 +45,6 @@ export default [
     description: 'Recto/Verso, Salle repas Croix-Verte',
     typeacces: 'Bureau Virtuel',
     driverlinux: 'linux_hp3010.ppd',
-    driverwindows: 'windows_hpuniversal.inf'
+    driverwindows: 'hp_m501_driver.exe'
   },
 ];

@@ -22,7 +22,7 @@ import {
 
 import PrinterCard from './components/PrinterCard/index'
 
-// Liste des produits VMWare
+// Liste des imprimantes
 import printers from './printers';
 import PrinterDialog from "./components/PrinterDialog";
 
